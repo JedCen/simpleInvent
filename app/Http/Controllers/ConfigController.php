@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Configuration;
+use Illuminate\Support\Facades\Input;
+use Image;
+use File;
+use DB;
 
 class ConfigController extends Controller
 {
@@ -13,50 +18,8 @@ class ConfigController extends Controller
      */
     public function index()
     {
-        return view('inventario.config.configuracion');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $configs = Configuration::all();
+        return view('inventario.config.configuracion', compact('configs'));
     }
 
     /**
@@ -66,9 +29,42 @@ class ConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $return = (object)[
+            'response' => false
+        ];
+        try {
+            DB::beginTransaction();
+            foreach ($request->post() as $short => $val) {
+                
+                Configuration::where('short', $short)
+                ->update(['val' => $val]);
+            }
+            $return->response = true;
+
+        DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        if ($return->response = true) {
+            return redirect()->route('config.index');
+        }
+    }
+
+    /**
+     * Show image product.
+     *
+     * @param $id
+     * @param $image
+     *
+     * @return string
+     */
+    public function imageConfig($id, $image)
+    {
+        return Image::make(storage_path().'/configs/id/'.$id.'/uploads/images/config/'.$image)->response();
     }
 
     /**
@@ -77,8 +73,29 @@ class ConfigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function upload($id)
     {
-        //
+        if (Input::hasFile('file')) {
+            $config = Configuration::find($id);
+            $avatar = Input::file('file');
+            $filename = 'config.'.$avatar->getClientOriginalExtension();
+            $save_path = storage_path().'/configs/id/'.$config->id.'/uploads/images/config/';
+            $path = $save_path.$filename;
+            $public_path = '/images/configs/'.$config->id.'/config/'.$filename;
+
+            // Make the user a folder and set permissions
+            File::makeDirectory($save_path, $mode = 0755, true, true);
+
+            // Save the file to the server
+            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+
+            // Save the public image path
+            $config->val = $public_path;
+            $config->save();
+
+            return response()->json(['path' => $path], 200);
+        } else {
+            return response()->json(false, 200);
+        }
     }
 }

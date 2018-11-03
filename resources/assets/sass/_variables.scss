@@ -1,6 +1,3 @@
-// Body
-$white: #ffffff;
-$body-bg: #f5f8fa;
 
 // Social Media
 $facebook: #4863ae;
@@ -9,23 +6,20 @@ $google: #DD4B39;
 $github: #4183C4;
 
 // Brands
-$brand-primary: #3097D1;
-$brand-info: #8eb4cb;
+$brand-primary: #2ab27b;
+$brand-info: #17a2b8 !important;
 $brand-success: #2ab27b;
 $brand-warning: #cbb956;
 $brand-danger: #bf5329;
 $text-color: #636b6f;
 
-// Typography
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+
 
 // Transitions
 $transitionSpeed: 0.35s;
 
 // Radius'
-$standard-radius: 3px;
+$standard-radius: 5px;
 
 // MQ's
 $mq-tiny: 320px;
@@ -47,13 +41,3 @@ $queries: (
     $lg-desktop: 'lg'
 );
 
-// // Buttons
-$btn-default-color: $text-color;
-
-// Inputs
-$input-border: lighten($text-color, 40%);
-$input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
-
-// Panels / Cards
-$panel-default-heading-bg: $white;

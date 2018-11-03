@@ -171,7 +171,7 @@ return [
         App\Providers\LocalEnvironmentServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
-
+        Spatie\Menu\Laravel\MenuServiceProvider::class,
     ],
 
     /*
@@ -227,6 +227,14 @@ return [
         'Gravatar'     => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Image'        => Intervention\Image\Facades\Image::class,
         'Uuid'         => Webpatser\Uuid\Uuid::class,
+
+        'Menu'         => Spatie\Menu\Laravel\Menu::class,
+        'Link'         => Spatie\Menu\Laravel\Link::class,
+        'Html'         => Spatie\Menu\Laravel\Html::class,
+        'Operation'    => App\Models\Operation::class,
+        'Product'      => App\Models\Product::class,
+        'Sell'         => App\Models\Sell::class,
+        'Config'        => App\Models\Configuration::class,
     ],
 
 ];

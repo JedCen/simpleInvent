@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('template_title')
+@section('htmlheader_title')
 	Routing Information
 @endsection
 
@@ -12,7 +12,7 @@
 				@include('partials.form-status')
 
 				<div class="card">
-					<div class="card-header">
+					<div class="card-header bg-info-gradient">
 						Routing Information
 						<span class="badge badge-primary pull-right">{{ count($routes) }} routes</span>
 					</div>

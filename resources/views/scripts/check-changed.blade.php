@@ -1,4 +1,5 @@
 <script type="text/javascript">
+$(".btn-save").hide();
   $('.btn-change-pw').click(function(event) {
     event.preventDefault();
     $('.pw-change-container').slideToggle(100);
@@ -13,12 +14,12 @@
     checkChanged();
   });
   function checkChanged() {
-    if(!$('input').val()){
+    if($('input').val()){
       $(".btn-save").hide();
     }
     else {
       $(".btn-save").show();
     }
-  }
+  } 
 
 </script>

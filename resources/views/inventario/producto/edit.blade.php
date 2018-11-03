@@ -9,7 +9,7 @@
 @endsection
 
 @section('breadcrumbs_info')
-  
+  hola
 @endsection
 
 @section('template_linked_css')

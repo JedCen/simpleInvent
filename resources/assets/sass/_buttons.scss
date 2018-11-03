@@ -21,13 +21,13 @@
 		&.left-btn-container {
 			padding-left: 0;
 			.btn {
-				@include vendor(border-radius, 0 $standard-radius $standard-radius 0);
+				@include vendor(border-radius, 0 2em 2em 0);
 			}
 		}
 		&.right-btn-container {
 			padding-right: 0;
 			.btn {
-				@include vendor(border-radius, $standard-radius 0 0 $standard-radius);
+				@include vendor(border-radius, 2em 0 0 2em);
 			}
 		}
 	}

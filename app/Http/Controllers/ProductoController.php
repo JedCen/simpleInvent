@@ -183,7 +183,7 @@ class ProductoController extends Controller
     }
 
      /**
-     * Upload and Update image product.
+     * Upload and Update image config.
      *
      * @param $file
      *

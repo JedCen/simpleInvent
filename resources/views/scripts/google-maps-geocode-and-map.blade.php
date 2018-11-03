@@ -5,7 +5,7 @@
 		function google_maps_geocode_and_map() {
 
 			var geocoder = new google.maps.Geocoder();
-			var address = '{{$user->profile->location}}';
+			var address = '{{ $user->profile->location }}';
 
 			geocoder.geocode( { 'address': address}, function(results, status) {
 

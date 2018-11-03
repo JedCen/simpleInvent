@@ -43,7 +43,7 @@
                                                                     <div class="dz-preview"></div>
                                                                     {!! Form::open(array('route' => 'avatar.upload', 'method' => 'POST', 'name' => 'avatarDropzone','id' => 'avatarDropzone', 'class' => 'form single-dropzone dropzone single', 'files' => true)) !!}
                                                                         <img id="user_selected_avatar" class="user-avatar" src="@if ($user->profile->avatar != NULL) {{ $user->profile->avatar }} @endif" alt="{{ $user->name }}">
-                                                                    {!! Form::close() !!}
+                                                                    {!! Form::close() !!} 
                                                                 </div>
                                                             </div>
                                                         </div>

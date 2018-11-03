@@ -2,6 +2,11 @@
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
+// Dropzone
+window.Dropzone = require('dropzone');
+ 
+Dropzone.autoDiscover = false;
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -10,9 +15,15 @@ window.Popper = require('popper.js').default;
 
 try {
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap');
+    require('admin-lte');
+    require('jquery-ui');
 } catch (e) {}
+
+
+window.toastr = require('toastr');
+require('icheck');
+
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -46,19 +57,31 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+// Use trans function in Vue (equivalent to trans() Laravel Translations helper). See htmlheader.balde.php partial.
+Vue.prototype.trans = (key) => {
+    return _.get(window.trans, key, key)
+  }
+  
+  // Laravel AdminLTE vue components
+  Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
+  Vue.component('login-form', require('./components/auth/LoginForm.vue'));
+  Vue.component('email-reset-password-form', require('./components/auth/EmailResetPasswordForm.vue'));
+  Vue.component('reset-password-form', require('./components/auth/ResetPasswordForm.vue'));
+  
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from 'laravel-echo'
+// import Echo from 'laravel-echo'
 
-window.Pusher = require('pusher-js');
+// window.Pusher = require('pusher-js');
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: true
-});
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     encrypted: true
+// });

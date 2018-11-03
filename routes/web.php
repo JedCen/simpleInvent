@@ -35,6 +35,11 @@ Route::group(['middleware' => ['web', 'activity']], function () {
 
     // Route to for user to reactivate their user deleted account.
     Route::get('/re-activate/{token}', ['as' => 'user.reactivate', 'uses' => 'RestoreUserController@userReActivate']);
+
+    // --> Route to show image config
+    Route::get('images/configs/{short}/config/{image}', [
+        'uses' => 'ConfigController@imageConfig',
+    ]);
 });
 
 // Registered and Activated User Routes
@@ -50,6 +55,7 @@ Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], fun
 
     //  Homepage Route - Redirect based on user role is in controller.
     Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
+    Route::get('/chart', ['as' => 'chart.estadist',   'uses' => 'UserController@chart']);
 
     // Show users profile - viewable by other users.
     Route::get('profile/{username}', [
@@ -93,6 +99,66 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
 
     // Route to upload user avatar.
     Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfilesController@upload']);
+
+    //  Para la venta
+        //Route::resource('sells','VentaController');
+    Route::get('sells', ['as' => 'public.home.sells', 'uses' => 'VentaController@index']);
+    Route::get('create', ['as' => 'sells.create', 'uses' => 'VentaController@create']);
+    Route::get('searchclient', ['as' => ' searchclient', 'uses' => 'VentaController@searchClient']);
+    Route::get('searchproduct', ['as' => 'searchproduct', 'uses' => 'VentaController@searchProduct']);
+    Route::get('sells/detail/{id}', ['as' => '{id}', 'uses' => 'VentaController@show']);
+    Route::post('save', 'VentaController@store')->name('save');
+    Route::delete('sells/destroy/{id}', ['as' => 'sells.destroy', 'uses' => 'VentaController@destroy']);
+
+        // Para la caja
+    Route::get('caja', ['as' => 'caja.index', 'uses' => 'HomeController@show']);
+    Route::put('caja/update', ['as' => 'caja.process', 'uses' => 'HomeController@process']);
+    Route::get('caja/historial', ['as' => 'caja.history', 'uses' => 'HomeController@history']);
+    Route::get('caja/historial/{id}',['as' => '{id}', 'uses' => 'HomeController@detailone']);
+
+        //  Para Producto
+    Route::resources([
+        'producto' => 'ProductoController'
+    ]);
+    Route::get('descargar-productos', 'ProductoController@pdf')->name('producto.pdf');
+        // --> Route to show image product
+    Route::get('images/products/{id}/product/{image}', [
+        'uses' => 'ProductoController@imageProduct',
+    ]);
+        // -->Route to upload image product.
+    Route::post('producto/upload/{id}', ['as' => 'producto.upload', 'uses' => 'ProductoController@upload']);
+
+        //  Para Categoría
+    Route::resources([
+        'categorias' => 'CategoriaController'
+    ]);
+
+        //  Para Clientes
+    Route::resource('clientes', 'ClientesController');
+    Route::get('clienteslist', 'ClientesController@list')->name('clientelist');
+
+        //  Para Proveedore
+    Route::resource('proveedor', 'ProveedoresController');
+    Route::get('proveedoreslist', 'ProveedoresController@list')->name('proveedorlist');
+    Route::get('searchproovedor', 'ProveedoresController@searchproovedor')->name('searchproveedor');
+
+        // Para Inventario
+    Route::resource('inventario', 'Invent\InventarioController');
+    Route::get('abastecer', 'Invent\InventarioController@invlist')->name('abastecerinv');
+    Route::get('abastecimientos', 'Invent\InventarioController@abastecerlist')->name('reabastecerinv');
+    Route::get('inventario/history/{id}', 'Invent\InventarioController@history')->name('inventario.history');
+
+        // Para reportes
+    Route::get('reporte/products', 'Reports\ReporteController@sellbyproduct')->name('sells.product');
+    Route::post('reporte/products', 'Reports\ReporteController@getsellbyproduct')->name('getsells.product');
+    Route::get('reporte/categorias', 'Reports\ReporteController@sellbycategory')->name('sells.category');
+    Route::post('reporte/categorias', 'Reports\ReporteController@getsellbycategory')->name('getsells.category');
+    Route::get('reporte/sells', 'Reports\ReporteController@sellbysells')->name('sells.sells');
+    Route::get('reporte/buys', 'Reports\ReporteController@sellbybuys')->name('sells.buys');
+
+        // Para Configuracion
+    Route::get('config/config','Configurar\ConfigController@getConfig');
+
 });
 
 // Registered, activated, and is admin routes.
@@ -124,6 +190,17 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
+    Route::get('php', function () {
+        return laravelPhpInfo::phpinfo;
+    });
+
+    //  Para Configuración
+    Route::get('/config', 'ConfigController@index')->name('config.index');
+    Route::post('/config/update', 'ConfigController@update')->name('config.update');
+    // -->Route to upload image config.
+    Route::post('config/upload/{short}', ['as' => 'config.upload', 'uses' => 'ConfigController@upload']);
+    
+     
 });
 
-Route::redirect('/php', '/phpinfo', 301);
+

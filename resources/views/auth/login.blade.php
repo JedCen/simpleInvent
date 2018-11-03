@@ -1,76 +1,41 @@
-@extends('layouts.app')
-
+@extends('layouts.auth') 
+@section('htmlheader_title') Log in
+@endsection
+ 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+<body class="hold-transition login-page">
+        <div class="login-box" id="app" v-cloak>
+            <div class="login-logo">
+                <a href="{{ url('/home') }}">
+                    <img src="@if (Config::find(6)->val != NULL) {{ Config::find(6)->val }} @endif" alt="{{ Config::find(6)->name }}" class="img-circle elevation-3"
+                    style="opacity: .8; width: 200px; height: 100px;">
+                </a>
+            </div>
+            <!-- /.login-logo -->
 
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <div class="card panel-info">
+                <div class="card-header">{{ trans('message.siginsession') }}</div>
+                <div class="card-body login-card-body">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                    <login-form name="{{ config('auth.providers.users.field','email') }}" domain="{{ config('auth.defaults.domain','') }}"></login-form>
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-4">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
-                        </div>
-
-                        <p class="text-center mb-3">
-                            Or Login with
-                        </p>
-
-                        @include('partials.socials-icons')
-
-                    </form>
+                    {{--
+                        @include('auth.partials.social_login') --}}
+                    <div class="social-auth-links text-center mb-3">
+                        <p>- OR -</p>
+                        @include('partials.socials')
+                    </div>
+                    <p class="mb-1">
+                        <a href="{{ url('/password/reset') }}">{{ trans('message.forgotpassword') }}</a>
+                    </p>
+                    <p class="mb-0">
+                        <a href="{{ url('/register') }}" class="text-center">{{ trans('message.registermember') }}</a>
+                    </p>
                 </div>
             </div>
+
         </div>
-    </div>
-</div>
+    @include('layouts.partials.scripts_auth')
+</body>
 @endsection

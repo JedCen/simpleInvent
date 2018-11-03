@@ -1,42 +1,52 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700");
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+// AdminLTE
+@import 'AdminLTE/AdminLTE';
+//Ionicons
+@import '~ionicons/scss/ionicons.scss';
 
 // Font Awesome
-@import '~font-awesome/scss/font-awesome';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
 
-// Dropzone
-@import "~dropzone/src/basic";
-@import "~dropzone/src/dropzone";
+.dropzone {
+	margin-bottom: 20px;
+	min-height: auto;
+}
+
+// Toastr
+@import '~toastr/toastr.scss';
+
+@import '~jquery-ui/themes/base/all.css';
+@import '~icheck/skins/all.css';
 
 // Bootstrap Social Media Buttons - https://github.com/lipis/bootstrap-social
 @import "~bootstrap-social/bootstrap-social.css";
+// Easy-autocomplete
+@import "~easy-autocomplete/src/sass/easy-autocomplete";
 
+// Variables
+@import "variables";
+// Dropzone
 @import "mixins";
 @import "margins";
 @import "helpers";
-@import "typography";
+@import "dzbasic";
+@import "dropzone";
+@import "forms";
 @import "buttons";
-@import "badges";
+@import "avatar";
 @import "panels";
-@import "wells";
 @import "modals";
 @import "socials";
 @import "forms";
 @import "lists";
 @import "avatar";
 @import "logs";
+@import "wells";
 @import "password";
 @import "hideShowPassword";
-@import "visibility";
 @import "user-profile";

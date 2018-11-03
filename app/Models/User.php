@@ -112,4 +112,12 @@ class User extends Authenticatable
     {
         return $this->profiles()->detach($profile);
     }
+    public function product()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
+    public function sell()
+    {
+        return $this->hasMany('App\Models\Sell');
+    }
 }
