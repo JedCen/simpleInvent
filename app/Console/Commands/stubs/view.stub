@@ -1,0 +1,45 @@
+@extends('layouts.app')
+
+@section('htmlheader_title')
+    Inventario
+@endsection
+
+@section('contentheader_title')
+    <i class='fa fa-product'></i> Inventario
+@endsection
+
+@section('template_linked_css')
+  <!-- Css Extras -->
+ 
+@endsection
+
+@section('content')
+	<div class="container-fluid spark-screen">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="card panel-info">
+                    <div class="card-header">
+                        <div class="float-left">
+                            <h5 class="card-title"><i class='fa fa-product-hunt'></i> Titulo </h5>
+                        </div>
+                        <div class="float-right">
+                            //
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        Put your content here
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+			</div>
+		</div>
+	</div>
+@endsection
+
+@section('footer_scripts')
+<!-- Scripts Extras -->
+    
+@endsection

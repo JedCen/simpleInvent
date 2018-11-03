@@ -1,0 +1,44 @@
+.card-primary {
+    border-color: $brand-primary;
+	> .card-header {
+	    color: $white;
+	    background-color: $brand-primary;
+	    border-color: $brand-primary;
+	}
+}
+
+.card-info {
+    border-color: $brand-info;
+	> .card-header {
+	    color: $white;
+	    background-color: $brand-info;
+	    border-color: $brand-info;
+	}
+}
+
+.card-success {
+    border-color: $brand-success;
+	> .card-header {
+	    color: $white;
+	    background-color: $brand-success;
+	    border-color: $brand-success;
+	}
+}
+
+.card-warning {
+    border-color: $brand-warning;
+	> .card-header {
+	    color: $white;
+	    background-color: $brand-warning;
+	    border-color: $brand-warning;
+	}
+}
+
+.card-danger {
+    border-color: $brand-danger;
+	> .card-header {
+	    color: $white;
+	    background-color: $brand-danger;
+	    border-color: $brand-danger;
+	}
+}
