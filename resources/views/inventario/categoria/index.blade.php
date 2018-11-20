@@ -41,7 +41,7 @@
                                     
                                 </div>
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-primary">Agregar</button>
+                                    <button type="submit" class="btn btn-info">Agregar</button>
                                </div>
                                
                             {!! Form::close() !!}
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col-sm-7">
-                    <div class="card panel-success">
+                    <div class="card panel-info">
                             <div class="card-header">
                                 <div class="float-left">
                                         <h4><i class='fa fa-list'></i> Lista Categorías</h4>

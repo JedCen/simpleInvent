@@ -14,9 +14,11 @@
             <div class="col-md-12">
                     <div class="clearfix"></div>
             @if(count($products)>0)
-
+            @php
+                $simbol =Config::find(5)->val;
+            @endphp
             <br>
-            <div class="card panel-primary @role('admin', true) panel-success  @endrole">
+            <div class="card panel-info @role('admin', true) panel-success  @endrole">
                 <div class="card-header with-border">
                     <div class="float-left">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Ventas
@@ -34,13 +36,14 @@
                     @php
                     $operations = Operation::getAllProductsBySellId($sell->id);
                     $total= $sell->total-$sell->discount;
+
                     @endphp
                     <tr>
                         <td>
                             {{ count($operations) }}
                         <td>
                             
-                            <b>$ {{ number_format($total) }} </b>         
+                            <b>{{$simbol}} {{ number_format($total) }} </b>         
 
                         </td>
                         <td>

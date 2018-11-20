@@ -73,9 +73,10 @@
                         foreach($sells as $sell){
                             $total += $sell->total;
                         }
+                        $simbol = Config::find(5)->val;
                     @endphp 
                                             
-                    <span class="info-box-number"> $ {{number_format($total,2,".",",")}} </span>
+                    <span class="info-box-number"> {{$simbol}} {{number_format($total,2,".",",")}} </span>
                 </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -96,4 +97,64 @@
 <!-- Scripts Extras -->
 {{ HTML::script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js') }}
 
+<script>
+/*
+* Funcion para el chart
+*/
+var url = '/chart';
+var Years = new Array();
+var Prices = new Array();
+
+$(document).ready(function(){
+  $.get(url, function(response){
+  response.forEach(function(data){
+      Years.push(data.created_at);
+      Prices.push(data.total);
+  });
+if(document.getElementById("myChart") != null){
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: Years,
+              datasets: [{
+                  label: 'Venta $',
+                  data: Prices,
+                  backgroundColor: [
+                      'rgba(63, 191, 191, 0.2)',
+                  ],
+                  borderColor: [
+                      'rgba(63,120,132,1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      scaleLabel: {
+                          display: true,
+                          labelString: 'Monto $$'
+                      },
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }],
+                  xAxes: [{
+                      scaleLabel: {
+                          display: true,
+                          labelString: 'Fecha'
+                      }
+                  }]
+              },
+              title: {
+                  display: true,
+                  text: 'Ventas del Mes'
+              }
+          }
+      });
+    }
+  });
+});
+</script>
 @endsection

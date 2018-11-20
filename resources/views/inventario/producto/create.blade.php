@@ -35,7 +35,8 @@
                         </div>
                     </div>
                     @endif 
-                        {!! Form::open(['route' => 'producto.store', 'files' => true]) !!}
+                        {!! Form::open(['route' => 'producto.store', 'files' => true, 'enctype' => 'multipart/form-data', 'id'=>'uploadForm']) !!}
+                            
                             @include('inventario.producto.partials.form') 
                             <div class="form-group">
                                 {{ Form::label('q', 'Cantidad actual de producto') }} {{ Form::number('q', null, ['class' => 'form-control col-md-6', 'id' => 'q',
@@ -57,4 +58,23 @@
 
 @section('footer_scripts')
 <!-- Scripts Extras -->
+    <script>
+    function readURL(input) {
+
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        $('#blah').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+    }
+    }
+
+    $("#image").change(function() {
+    readURL(this);
+    });
+    </script>
+
 @endsection

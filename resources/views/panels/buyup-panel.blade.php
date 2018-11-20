@@ -16,7 +16,7 @@
                             @if(!isset($produc->image)) <img class="image-prod rounded-circle" src="{{ asset('img/default-150x150.png') }}"> @else <img class="image-prod rounded-circle" src="{{ $produc->image }}" alt="{{ $produc->name }}" /> @endif
                                 {{ $produc->name }}
                                 <span class="badge badge-warning badge-pill text-white float-right">
-                                ${{ $produc->price_out }}
+                                {{$simbol}} {{ $produc->price_out }}
                                 </span>
                             </div>
                             <span class="list-group-item-text float-right">

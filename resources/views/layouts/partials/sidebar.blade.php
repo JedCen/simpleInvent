@@ -3,8 +3,11 @@
     <!-- Brand Logo -->
     <a href="{{url('/home')}}" class="brand-link bg-info">
         <!-- User Image -->
-        @if (Config::find(6)->val != NULL)
-        <img src="{{ Config::find(6)->val }}" alt="{{ Config::find(6)->name }}" class="brand-image img-circle elevation-3"
+        @php
+            $imageconfig = Config::find(6);
+        @endphp
+        @if ($imageconfig->val != NULL)
+        <img src="{{ $imageconfig->val }}" alt="{{ $imageconfig->name }}" class="brand-image img-circle elevation-3"
             style="opacity: .8"> 
         @else
             <img src="{{ Gravatar::get(Auth::user()->email) }}" alt="{{ Auth::user()->name }}" class="brand-image img-circle elevation-3" style="opacity: .8">        

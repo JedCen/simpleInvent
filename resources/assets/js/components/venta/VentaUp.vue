@@ -35,7 +35,7 @@
             <div class="col-2 col-sm-2">
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text">$</span>
+                <span class="input-group-text">{{ configs.symbol }}</span>
               </div>
               <input type="text" class="form-control" aria-label="Precio" readonly v-model="receiversProd.price">
             </div>
@@ -64,7 +64,7 @@
         <tbody>
         <tr v-for="(item, index) in detail" :key="index">
             <td>
-                <button  class="btn btn-danger btn-xs btn-block" v-on:click="removeProductFromDetail">X</button>
+                <button  class="btn btn-danger btn-sm" v-on:click="removeProductFromDetail"><i class="fas fa-eraser"></i></button>
             </td>
             <td > {{ item.name }} </td>
             <td class="text-right"> {{ item.quantity }} </td>
@@ -74,23 +74,29 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="4" class="text-right"><b>IVA</b></td>
-            <td class="text-right">$ {{iva}}</td>
+          <td colspan="4" class="text-right"><b>Sub Total</b></td>
+          <td class="text-right">{{ configs.symbol }} {{subTotal}}</td>
         </tr>
         <tr>
-            <td colspan="4" class="text-right"><b>Sub Total</b></td>
-            <td class="text-right">$ {{subTotal}}</td>
+            <td colspan="4" class="text-right"><b>{{ configs.name_imp }}</b></td>
+            <td class="text-right">{{ configs.symbol }} {{iva}}</td>
         </tr>
         <tr>
             <td colspan="4" class="text-right"><b>Total</b></td>
-            <td class="text-right">$ {{total}}</td>
+            <td class="text-right">{{ configs.symbol }} {{total}}</td>
         </tr>
         </tfoot>
     </table>
-    <button class="botton-guardar" v-if="detail.length > 0 && proveedor_id > 0" @click="newAbastecer">
-        Guardar
-    </button>
-    <button class="btn btn-danger btn-app"  v-if="detail.length > 0 && proveedor_id > 0" @click.prevent="resetDatos">Cancelar</button>
+      <div class="col-md-3 float-left">
+        <button class="btn btn-danger btn-block"  v-if="detail.length > 0 && proveedor_id > 0" @click.prevent="resetDatos">
+          <i class="fas fa-exclamation-triangle"></i> Cancelar
+        </button>
+      </div>
+      <div class="col-md-3 float-right">
+        <button class="btn btn-warning btn-block" v-if="detail.length > 0 && proveedor_id > 0" @click="newAbastecer">
+           <i class="far fa-save"></i> Guardar 
+        </button>
+      </div>
 </div>
 
 </template>
@@ -101,6 +107,7 @@ export default {
   data() {
     return {
       errors: [],
+      configs: [],
       proveedor: [],
       producto: [],
       receiversProv: [],
@@ -118,6 +125,63 @@ export default {
   mounted: function() {
     this.proveedorAutocomplete();
     this.productAutocomplete();
+    this.ConfigurationSystem();
+    if (sessionStorage.getItem("_Prov2")) {
+      try {
+        this.proveedor_id = sessionStorage.getItem("_Prov2");
+      } catch(e) {
+        sessionStorage.removeItem('_Prov2');
+      }
+    }
+    if (sessionStorage.getItem("_NomProv2")) {
+      try {
+        this.receiversProv.name = sessionStorage.getItem("_NomProv2");
+      } catch(e) {
+        sessionStorage.removeItem('_NomProv2');
+      }
+    }
+    if (sessionStorage.getItem("_RFC2")) {
+      try {
+        this.receiversProv.rfc = sessionStorage.getItem("_RFC2");
+      } catch(e) {
+        sessionStorage.removeItem('_RFC2');
+      }
+    }
+    if (sessionStorage.getItem("_Adress2")) {
+      try {
+        this.receiversProv.address1 = sessionStorage.getItem("_Adress2");
+      } catch(e) {
+        sessionStorage.removeItem('_Adress2');
+      }
+    }
+    if (sessionStorage.getItem("_detail2")) {
+      try {
+        this.detail = JSON.parse(sessionStorage.getItem("_detail2"));
+      } catch(e) {
+        sessionStorage.removeItem('_detail2');
+      }
+    }    
+    if (sessionStorage.getItem("_Total2")) {
+      try {
+        this.total = sessionStorage.getItem("_Total2");
+      } catch(e) {
+        sessionStorage.removeItem('_Total2');
+      }
+    }
+    if (sessionStorage.getItem("_subTotal2")) {
+      try {
+        this.subTotal = sessionStorage.getItem("_subTotal2");
+      } catch(e) {
+        sessionStorage.removeItem('_subTotal2');
+      }
+    }
+    if (sessionStorage.getItem("_iva2")) {
+      try {
+        this.iva = sessionStorage.getItem("_iva2");
+      } catch(e) {
+        sessionStorage.removeItem('_iva2');
+      }
+    }
   },
   methods: {
     addProducToDetail() {
@@ -128,7 +192,8 @@ export default {
         );
       } else {
         const vm = this;
-        this.detail.push({
+
+        vm.detail.push({
           id: vm.product_id,
           name: vm.receiversProd.name,
           quantity: parseFloat(vm.quantity),
@@ -143,6 +208,7 @@ export default {
         vm.stock = "";
         this.calculate();
         toastr.info("Se agrego correctamente!", "Atención");
+        this.saveDetails();
       }
     },
     newAbastecer() {
@@ -161,6 +227,7 @@ export default {
           .then(response => {
             toastr.success("Venta: Se realizo correctamente", "Atencion");
             this.resetDatos();
+            this.sesionRemove();
           })
           .catch(error => {
             console.log(error.response);
@@ -180,6 +247,7 @@ export default {
       this.subTotal = "";
       this.total = "";
       this.stock = null;
+      this.sesionRemove();
     },
     calculate() {
       const vm = this;
@@ -190,8 +258,11 @@ export default {
       });
 
       vm.total = total;
-      vm.subTotal = parseFloat(total * 0.84);
-      vm.iva = parseFloat(total * 0.16);
+      vm.subTotal = (total/(1 + (vm.configs.val_imp/100))).toFixed(2);
+      vm.iva = ((total/(1 + (vm.configs.val_imp/100))) * (vm.configs.val_imp/100)).toFixed(2);
+      sessionStorage.setItem('_Total2', vm.total);
+      sessionStorage.setItem('_subTotal2', vm.subTotal);
+      sessionStorage.setItem('_iva2', vm.iva);
     },
     removeProductFromDetail(e) {
       var item = e.item,
@@ -199,6 +270,7 @@ export default {
       toastr.warning("Se elimino correctamente!", "Atención");
       this.detail.splice(index, 1);
       this.calculate();
+      this.saveDetails();
     },
     proveedorAutocomplete() {
       axios.get("/searchclient").then(response => {
@@ -228,7 +300,7 @@ export default {
       });
     },
     productAutocomplete() {
-      axios.get("/searchproduct").then(response => {
+      axios.get("/searchproductsell").then(response => {
         this.producto = response.data.producto;
 
         const vm = this;
@@ -261,6 +333,10 @@ export default {
       this.receiversProv.rfc = e.rfc;
       this.receiversProv.address1 = e.address1;
       this.receiversProv.push(e);
+      sessionStorage.setItem('_Prov2', e.id);
+      sessionStorage.setItem('_NomProv2', e.name);
+      sessionStorage.setItem('_RFC2', e.rfc);
+      sessionStorage.setItem('_Adress2', e.address1);
     },
     addReceiverProd() {
       var e = $("#producto").getSelectedItemData();
@@ -269,44 +345,27 @@ export default {
       this.stock = e.stock;
       this.receiversProd.price = e.price;
       this.receiversProd.push(e);
+    },
+    saveDetails() {
+      const parsed = JSON.stringify(this.detail);
+      sessionStorage.setItem("_detail2", parsed);
+    },
+    sesionRemove() {
+      sessionStorage.removeItem('_Adress2');
+      sessionStorage.removeItem('_detail2');
+      sessionStorage.removeItem('_iva2');
+      sessionStorage.removeItem('_NomProv2');
+      sessionStorage.removeItem('_Prov2');
+      sessionStorage.removeItem('_RFC2');
+      sessionStorage.removeItem('_subTotal2');
+      sessionStorage.removeItem('_Total2');
+    },
+    ConfigurationSystem() {
+      axios.get("/config/config").then(response => {
+        this.configs = response.data.configs;
+      });
     }
   }
 };
 </script>
-<style>
-.botton-guardar {
-  border: 1px solid #c9ae34;
-  color: #705d07;
-  border-radius: 3px 3px 3px 3px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  -moz-border-radius: 3px 3px 3px 3px;
-  font-family: Trebuchet MS;
-  width: auto;
-  height: auto;
-  font-size: 16px;
-  padding: 9px 65px;
-  box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d, 0 2px 4px 0 #d4d4d4;
-  -moz-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d, 0 2px 4px 0 #d4d4d4;
-  -webkit-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d, 0 2px 4px 0 #d4d4d4;
-  text-shadow: 0 1px 0 #ffffff;
-  background-image: linear-gradient(to left, #fce374, #fcdf5b);
-  background-color: #fce374;
-  float: right;
-}
-.botton-guardar:hover,
-.botton-guardar:active {
-  border: 1px solid #967d09;
-  color: #705d07;
-  box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d;
-  -moz-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d;
-  -webkit-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d;
-  background-color: #fcdf5b;
-}
-</style>
 

@@ -17,7 +17,7 @@
     <div class="container-fluid spark-screen">
         <div class="row">
             <div class="col-md-12 col-md">
-                <div class="card panel-success">
+                <div class="card panel-info">
                     <div class="card-header">
                         <div class="float-left">
                                 <i class='fab fa-product-hunt'></i> Productos en inventario
@@ -37,6 +37,9 @@
                         </div>
                     </div> <!-- /.box-header -->
                     <div class="card-body">
+                            @php
+                                $simbol = Config::find(5)->val;
+                            @endphp
                         <div class="clearfix"></div> 
                         <div class="box">
                             <div class="box-header">
@@ -51,7 +54,7 @@
                                         <th>Precio Salida</th>
                                         <th>Categoria</th>
                                         <th>Disponible</th>
-                                        <th>Total $</th>
+                                        <th>Total {{$simbol}}</th>
                                         <th class="text-center"> <i class="fa fa-history"></i></th>
                                         </tr>
                                     </thead>
@@ -62,8 +65,8 @@
                                     <tr>
                                         <td>{{$product->barcode}}</td>
                                         <td>{{$product->name}}</td>
-                                        <td>$ {{number_format($product->price_out,2,'.',',')}}</td>
-                                        <td><?php if($product->category_id!=null){echo $product->category->name;}else{ echo "<center>----</center>"; }  ?> 
+                                        <td>{{$simbol}} {{number_format($product->price_out,2,'.',',')}}</td>
+                                        <td><?php if($product->category_id != null){echo $product->category->name;}else{ echo "<center>----</center>"; }  ?> 
                                         </td>
                                         <td>{{ $q }}</td>
                                         <td>  
@@ -71,10 +74,11 @@
                                                 $total = 0;   
                                                     $total += $q*$product->price_out;               
                                             @endphp
-                                            <b>$ {{number_format($total,2,".",",")}}</b>
+                                            <b>{{$simbol}} {{number_format($total,2,".",",")}}</b>
                                         </td>
                                         <td style="width:70px;">
                                             {!! HTML::icon_link(URL::to(route('inventario.history', $product->id)), 'fa fa-history fa-fw','', array('class' => 'btn btn-xs btn-info', 'data-toggle' => 'tooltip', 'title' => 'Historial de producto')) !!}
+                                            
                                         </td>
                                     </tr>
                                     @endforeach

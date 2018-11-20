@@ -54,6 +54,7 @@
             @if(Request::has('proveedor'))
             @php
                 $total_total = 0;
+                $simbol =Config::find(5)->val;
             @endphp
             <div class="col-md-9 col-md">
                 <div class="card panel-info">
@@ -99,7 +100,7 @@
                             @foreach($operations as $operation)
                             <tr>
                                 <td> {{$operation->id}}</td>
-                                <td> ${{ number_format($operation->total,2,'.',',') }}</td>
+                                <td> {{$simbol}}{{ number_format($operation->total,2,'.',',') }}</td>
                                 <td> {{ $operation->person->name }} </td>
                                 <td> {{ $operation->created_at }} </td>
                             </tr>
@@ -121,7 +122,7 @@
     
                     <div class="info-box-content">
                         <span class="info-box-text">Total compra</span>
-                        <span class="info-box-number">$ {{number_format($total_total,2,".",",")}}</span>
+                        <span class="info-box-number">{{$simbol}} {{number_format($total_total,2,".",",")}}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

@@ -18,7 +18,9 @@
 		<div class="row">
 			<div class="col-md-12">
                     @if(count($sells)>0 && $sells->operation_type_id == 1)
-
+                    @php
+                        $simbol = Config::find(5)->val;
+                    @endphp
 				<div class="card panel-info">
                     <div class="card-header">
                         <div class="float-left">
@@ -58,15 +60,15 @@
                             <tr>
                                 <td>{{$operation->product->name}}</td>
                                 <td class="text-right">{{$q1=$operation->q}}</td>
-                                <td class="text-right">$ {{number_format( $q2=$operation->product->price_in, 2)}}</td>
-                                <td class="text-right">$ {{number_format($q3=$q1*$q2, 2)}}</td>
+                                <td class="text-right">{{$simbol}} {{number_format( $q2=$operation->product->price_in, 2)}}</td>
+                                <td class="text-right">{{$simbol}} {{number_format($q3=$q1*$q2, 2)}}</td>
                             </tr>
                             @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
                                 <td colspan="3" class="text-right"><b>Total</b></td>
-                                <td class="text-right">$ {{ number_format($q3, 2) }}</td>
+                                <td class="text-right">{{$simbol}} {{ number_format($q3, 2) }}</td>
                             </tr>
                             </tfoot>
                         </table>

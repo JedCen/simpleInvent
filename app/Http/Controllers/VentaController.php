@@ -178,6 +178,30 @@ class VentaController extends Controller
         ], 200);
     }
 
+    public function searchProductSell(Request $request)
+    {
+        $q = $request->input('q');
+
+        $results = array();
+
+
+        $queries = Product::where('is_active', '=', 1)
+            ->where(function($xd) use ($q){
+                $xd->where('barcode', 'LIKE', '%' . $q . '%')
+                ->orWhere('name', 'LIKE', '%' . $q . '%');
+            }) 
+            ->take(5)->get();
+
+        foreach ($queries as $query) {
+            $stock = Operation::getQYesF($query->id);
+            $results[] = ['id' => $query->id, 'barcode' => $query->barcode, 'name' => $query->name, 'price' => $query->price_out, 'stock' => $stock];
+        }
+
+        return response()->json([
+            'producto' => $results
+        ], 200);
+    }
+
     public function searchProduct(Request $request)
     {
         $q = $request->input('q');
@@ -185,8 +209,10 @@ class VentaController extends Controller
         $results = array();
 
 
-        $queries = Product::where('barcode', 'LIKE', '%' . $q . '%')
-            ->orWhere('name', 'LIKE', '%' . $q . '%')
+        $queries = Product::where(function($xd) use ($q){
+                $xd->where('barcode', 'LIKE', '%' . $q . '%')
+                ->orWhere('name', 'LIKE', '%' . $q . '%');
+            }) 
             ->take(5)->get();
 
         foreach ($queries as $query) {

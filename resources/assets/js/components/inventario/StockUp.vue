@@ -21,7 +21,7 @@
                 <input id="producto" class="form-control" type="text" placeholder="Nombre del producto" v-model="receiversProd.name">
             </div>
             <div class="col-sm-2">
-                <input class="form-control" type="text" placeholder="Cantidad" v-model="quantity">
+                <input class="form-control" type="text" placeholder="Cantidad" v-model="quantity" v-if="receiversProd.name" v-on:keyup.enter="addProducToDetail">
             </div>
             <div class="col-sm-2">
 
@@ -29,16 +29,16 @@
             <div class="col-sm-2">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
+                    <span class="input-group-text">{{ configs.symbol }}</span>
                   </div>
                   <input class="form-control" type="text" placeholder="Precio"  readonly v-model="receiversProd.price">
                 </div>
             </div>
             <div class="col-sm-1">
-                <button  class="btn btn-primary form-contro" id="btn-agregar" v-if="quantity > 0 && receiversProd.name != null" v-on:click="addProducToDetail">
+                <button  class="btn btn-primary form-contro" id="btn-agregar" v-if="quantity > 0 && receiversProd.name" v-on:click="addProducToDetail">
                     <i class="fa fa-plus"></i>
                 </button>
-                <button  class="btn btn-primary form-contro" id="btn-agregar" v-else-if="quantity < 0 && receiversProd.name == null">
+                <button  class="btn btn-primary form-contro" id="btn-agregar" v-else-if="quantity < 0 && !receiversProd.name">
                     <i class="fa fa-plus"></i>
                 </button>
             </div>
@@ -58,7 +58,7 @@
         <tbody>
         <tr v-for="(item, index) in detail" :key="index">
             <td>
-                <button  class="btn btn-danger btn-xs btn-block" v-on:click="removeProductFromDetail">X</button>
+                <button  class="btn btn-danger btn-sm" v-on:click="removeProductFromDetail"><i class="fas fa-eraser"></i></button>
             </td>
             <td > {{ item.name }} </td>
             <td class="text-right"> {{ item.quantity }} </td>
@@ -67,24 +67,30 @@
         </tr>
         </tbody>
         <tfoot>
-        <tr>
-            <td colspan="4" class="text-right"><b>IVA</b></td>
-            <td class="text-right">$ {{iva}}</td>
+          <tr>
+            <td colspan="4" class="text-right"><b>Sub Total</b></td>
+            <td class="text-right">{{ configs.symbol }} {{subTotal}}</td>
         </tr>
         <tr>
-            <td colspan="4" class="text-right"><b>Sub Total</b></td>
-            <td class="text-right">$ {{subTotal}}</td>
+            <td colspan="4" class="text-right"><b>{{ configs.name_imp }}</b></td>
+            <td class="text-right">{{ configs.symbol }} {{iva}}</td>
         </tr>
         <tr>
             <td colspan="4" class="text-right"><b>Total</b></td>
-            <td class="text-right">$ {{total}}</td>
+            <td class="text-right">{{ configs.symbol }} {{total}}</td>
         </tr>
         </tfoot>
     </table>
-    <button class="botton-guardar" v-if="detail.length > 0 && proveedor_id > 0" @click="newAbastecer">
-        Guardar
-    </button>
-    <button class="btn btn-danger btn-app"  v-if="detail.length > 0 && proveedor_id > 0" @click.prevent="resetDatos">Cancelar</button>
+      <div class="col-md-3 float-left">
+        <button class="btn btn-danger btn-block"  v-if="detail.length > 0 && proveedor_id > 0" @click.prevent="resetDatos">
+          <i class="fas fa-exclamation-triangle"></i> Cancelar
+        </button>
+      </div>
+      <div class="col-md-3 float-right">
+        <button class="btn btn-warning btn-block" v-if="detail.length > 0 && proveedor_id > 0" @click="newAbastecer">
+          <i class="far fa-save"></i> Guardar 
+        </button>
+      </div>
 </div>
 
 </template>
@@ -95,6 +101,7 @@ export default {
   data() {
     return {
       errors: [],
+      configs: [],
       proveedor: [],
       producto: [],
       receiversProv: [],
@@ -111,6 +118,64 @@ export default {
   mounted: function() {
     this.proveedorAutocomplete();
     this.productAutocomplete();
+    this.ConfigurationSystem();
+
+    if (sessionStorage.getItem("_Prov")) {
+      try {
+        this.proveedor_id = sessionStorage.getItem("_Prov");
+      } catch(e) {
+        sessionStorage.removeItem('_Prov');
+      }
+    }
+    if (sessionStorage.getItem("_NomProv")) {
+      try {
+        this.receiversProv.name = sessionStorage.getItem("_NomProv");
+      } catch(e) {
+        sessionStorage.removeItem('_NomProv');
+      }
+    }
+    if (sessionStorage.getItem("_RFC")) {
+      try {
+        this.receiversProv.rfc = sessionStorage.getItem("_RFC");
+      } catch(e) {
+        sessionStorage.removeItem('_RFC');
+      }
+    }
+    if (sessionStorage.getItem("_Adress")) {
+      try {
+        this.receiversProv.address1 = sessionStorage.getItem("_Adress");
+      } catch(e) {
+        sessionStorage.removeItem('_Adress');
+      }
+    }
+    if (sessionStorage.getItem("_detail")) {
+      try {
+        this.detail = JSON.parse(sessionStorage.getItem("_detail"));
+      } catch(e) {
+        sessionStorage.removeItem('_detail');
+      }
+    }    
+    if (sessionStorage.getItem("_Total")) {
+      try {
+        this.total = sessionStorage.getItem("_Total");
+      } catch(e) {
+        sessionStorage.removeItem('_Total');
+      }
+    }
+    if (sessionStorage.getItem("_subTotal")) {
+      try {
+        this.subTotal = sessionStorage.getItem("_subTotal");
+      } catch(e) {
+        sessionStorage.removeItem('_subTotal');
+      }
+    }
+    if (sessionStorage.getItem("_iva")) {
+      try {
+        this.iva = sessionStorage.getItem("_iva");
+      } catch(e) {
+        sessionStorage.removeItem('_iva');
+      }
+    }
   },
   methods: {
     addProducToDetail() {
@@ -130,6 +195,7 @@ export default {
 
       this.calculate();
       toastr.info("Se agrego correctamente!", "Atención");
+      this.saveDetails();
     },
     newAbastecer() {
       const vm = this;
@@ -145,6 +211,7 @@ export default {
         .then(response => {
           toastr.success("Producto: Se agrego correctamente", "Atencion");
           this.resetDatos();
+          this.sesionRemove();
         })
         .catch(error => {
           console.log(error.response);
@@ -162,6 +229,7 @@ export default {
       this.iva = "";
       this.subTotal = "";
       this.total = "";
+      this.sesionRemove();
     },
     calculate() {
       const vm = this;
@@ -172,8 +240,11 @@ export default {
       });
 
       vm.total = total;
-      vm.subTotal = parseFloat(total * 0.84);
-      vm.iva = parseFloat(total * 0.16);
+      vm.subTotal = (total/(1 + (vm.configs.val_imp/100))).toFixed(2);
+      vm.iva = ((total/(1 + (vm.configs.val_imp/100))) * (vm.configs.val_imp/100)).toFixed(2);
+      sessionStorage.setItem('_Total', vm.total);
+      sessionStorage.setItem('_subTotal', vm.subTotal);
+      sessionStorage.setItem('_iva', vm.iva);
     },
     removeProductFromDetail(e) {
       var item = e.item,
@@ -181,6 +252,7 @@ export default {
       toastr.warning("Se elimino correctamente!", "Atención");
       this.detail.splice(index, 1);
       this.calculate();
+      this.saveDetails();
     },
     proveedorAutocomplete() {
       axios.get("/searchproovedor").then(response => {
@@ -243,6 +315,11 @@ export default {
       this.receiversProv.rfc = e.rfc;
       this.receiversProv.address1 = e.address1;
       this.receiversProv.push(e);
+      
+      sessionStorage.setItem('_Prov', e.id);
+      sessionStorage.setItem('_NomProv', e.name);
+      sessionStorage.setItem('_RFC', e.rfc);
+      sessionStorage.setItem('_Adress', e.address1);
     },
     addReceiverProd() {
       var e = $("#producto").getSelectedItemData();
@@ -250,45 +327,27 @@ export default {
       this.receiversProd.name = e.name;
       this.receiversProd.price = e.price;
       this.receiversProd.push(e);
+    },
+    saveDetails() {
+      const parsed = JSON.stringify(this.detail);
+      sessionStorage.setItem("_detail", parsed);
+    },
+    sesionRemove() {
+      sessionStorage.removeItem('_Adress');
+      sessionStorage.removeItem('_detail');
+      sessionStorage.removeItem('_iva');
+      sessionStorage.removeItem('_NomProv');
+      sessionStorage.removeItem('_Prov');
+      sessionStorage.removeItem('_RFC');
+      sessionStorage.removeItem('_subTotal');
+      sessionStorage.removeItem('_Total');
+    },
+    ConfigurationSystem() {
+      axios.get("/config/config").then(response => {
+        this.configs = response.data.configs;
+      });
     }
   }
 };
 </script>
-<style>
-
-.botton-guardar {
-  border: 1px solid #c9ae34;
-  color: #705d07;
-  border-radius: 3px 3px 3px 3px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  -moz-border-radius: 3px 3px 3px 3px;
-  font-family: Trebuchet MS;
-  width: auto;
-  height: auto;
-  font-size: 16px;
-  padding: 9px 65px;
-  box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d, 0 2px 4px 0 #d4d4d4;
-  -moz-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d, 0 2px 4px 0 #d4d4d4;
-  -webkit-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d, 0 2px 4px 0 #d4d4d4;
-  text-shadow: 0 1px 0 #ffffff;
-  background-image: linear-gradient(to left, #fce374, #fcdf5b);
-  background-color: #fce374;
-  float: right;
-}
-.botton-guardar:hover,
-.botton-guardar:active {
-  border: 1px solid #967d09;
-  color: #705d07;
-  box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d;
-  -moz-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d;
-  -webkit-box-shadow: inset 0 1px 0 0 #fff6ce, inset 0 -1px 0 0 #e3c852,
-    inset 0 0 0 1px #fce88d;
-  background-color: #fcdf5b;
-}
-</style>
 

@@ -19,6 +19,7 @@
             @if ($boxes->count()>0)
             @php
                 $total_total = 0;
+                $simbol =Config::find(5)->val;
             @endphp 
 			<div class="col-md-9">
 
@@ -53,8 +54,8 @@
                                             $total += $sell->total-$sell->discount;
                                         }
                                             $total_total += $total;
-                                            echo number_format($total,2,".",",");
                                         @endphp
+                                        {{$simbol}} {{number_format($total,2,".",",")}}
                                     </td>
                                     <td> {{ $box->created_at }} </td>
                                 </tr>
@@ -74,7 +75,7 @@
             
                             <div class="info-box-content">
                                 <span class="info-box-text">Total caja</span>
-                                <span class="info-box-number">$ {{number_format($total_total,2,".",",")}}</span>
+                                <span class="info-box-number">{{$simbol}} {{number_format($total_total,2,".",",")}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

@@ -169,9 +169,9 @@ return [
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\LocalEnvironmentServiceProvider::class,
-        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -235,6 +235,7 @@ return [
         'Product'      => App\Models\Product::class,
         'Sell'         => App\Models\Sell::class,
         'Config'        => App\Models\Configuration::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

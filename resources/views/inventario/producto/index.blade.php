@@ -11,7 +11,11 @@
 
 @section('content')
     <div class="container-fluid spark-screen">
+            @php
+                $simbol = Config::find(5)->val;
+            @endphp
         <div class="row">
+                
             <div class="col-md-12 col-md">
                     <div class="card panel-info">
                         <div class="card-header">
@@ -33,6 +37,14 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @if(session()->has('info'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session()->get('info') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @endif
                             <div class="table-responsive">
                                 <table id="data-table" class="table table-bordered table-striped">
                                     <thead>
@@ -57,8 +69,8 @@
                                             @endif
                                         </td>
                                         <td>{{$product->name}}</td>
-                                        <td>$ {{number_format($product->price_in,2,'.',',')}}</td>
-                                        <td>$ {{number_format($product->price_out,2,'.',',')}}</td>
+                                        <td>{{$simbol}} {{number_format($product->price_in,2,'.',',')}}</td>
+                                        <td>{{$simbol}} {{number_format($product->price_out,2,'.',',')}}</td>
                                         <td><?php if($product->category_id!=null){echo $product->category->name;}else{ echo "<center>----</center>"; }  ?> </td>
                                         <td>{{$product->inventary_min}}</td>
                                         <td><?php if($product->is_active == 1): ?><i class="fa fa-check"></i><?php endif;?></td>

@@ -1,5 +1,16 @@
 {{ Form::hidden('user_id', Auth::user()->id) }}
 
+@if (request()->path() == request()->is('producto/create'))
+    <div class="form-group">
+            <img class="elevation-3 rounded mx-auto d-block" id="blah" src="#" alt="Cargar imagen" width="100"/>
+            <hr>
+        {{ Form::label('image', 'Cargar imagen') }}
+        {{ Form::file('image') }}
+        <small class="form-text text-danger">
+                {{ $errors->first('image') }}
+        </small>
+    </div>
+@endif
 
 <div class="form-group">
     {{ Form::label('barcode', 'Codigo de barra') }}

@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-12 col-md">
 
-              <div class="card panel-primary @role('admin', true) panel-success  @endrole">
+              <div class="card panel-info @role('admin', true) panel-success  @endrole">
                     <div class="card-header">
                         <div class="float-left">
                             <i class='fa fa-archive'></i> Caja
@@ -40,7 +40,9 @@
                         <div class="clearfix"></div>   
                             
                             @if($sells->count()>0)
-                            
+                            @php
+                                $simbol =Config::find(5)->val;
+                            @endphp
                             <?php $total_total = 0; ?>
                             
                             <br>
@@ -77,7 +79,7 @@
                                         }
                                             $total_total += $total;
                                     @endphp 
-                                             <b>$ {{number_format($total,2,".",",")}}</b>
+                                             <b>{{$simbol}} {{number_format($total,2,".",",")}}</b>
                                     </td>
                                     <td>
                                         {{$sell->created_at}}
@@ -86,7 +88,7 @@
                                 @endforeach
 
                             </table>
-                            <h1>Total: {{ "$ ".number_format($total_total,2,".",",") }}</h1>
+                            <h1>Total: {{$simbol}} {{ number_format($total_total,2,".",",") }}</h1>
                             @else 
                                 <div class="jumbotron">
                                     <h2>No hay ventas</h2>

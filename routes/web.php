@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
 });
 
 // Registered and Activated User Routes
-Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], function () {
+Route::group(['middleware' => ['auth', 'activated', 'twostep']], function () {
 
     //  Homepage Route - Redirect based on user role is in controller.
     Route::get('/home', ['as' => 'public.home',   'uses' => 'UserController@index']);
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep']], fun
 });
 
 // Registered, activated, and is current user routes.
-Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', 'twostep']], function () {
+Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], function () {
 
     // User Profile and Account Routes
     Route::resource(
@@ -105,6 +105,7 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
     Route::get('sells', ['as' => 'public.home.sells', 'uses' => 'VentaController@index']);
     Route::get('create', ['as' => 'sells.create', 'uses' => 'VentaController@create']);
     Route::get('searchclient', ['as' => ' searchclient', 'uses' => 'VentaController@searchClient']);
+    Route::get('searchproductsell', ['as' => 'searchproductsell', 'uses' => 'VentaController@searchProductSell']);
     Route::get('searchproduct', ['as' => 'searchproduct', 'uses' => 'VentaController@searchProduct']);
     Route::get('sells/detail/{id}', ['as' => '{id}', 'uses' => 'VentaController@show']);
     Route::post('save', 'VentaController@store')->name('save');
@@ -162,7 +163,7 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
 });
 
 // Registered, activated, and is admin routes.
-Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep']], function () {
+Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'twostep']], function () {
     Route::resource('/users/deleted', 'SoftDeletesController', [
         'only' => [
             'index', 'show', 'update', 'destroy',
@@ -180,19 +181,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     ]);
     Route::post('search-users', 'UsersManagementController@search')->name('search-users');
 
-    Route::resource('themes', 'ThemesManagementController', [
-        'names' => [
-            'index'   => 'themes',
-            'destroy' => 'themes.destroy',
-        ],
-    ]);
-
-    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
-    Route::get('php', function () {
-        return laravelPhpInfo::phpinfo;
-    });
 
     //  Para Configuración
     Route::get('/config', 'ConfigController@index')->name('config.index');

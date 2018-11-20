@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 use Image;
 use File;
 
@@ -67,16 +67,23 @@ class ProductoController extends Controller
         $products = new Product();
         $products->fill($request->all())->save();
 
-        // //IMAGE
-        // if ($request->file('image')) {
-        //     $file = $request->file('image');
-        //     $path = public_path() . '/images/products/';
-        //     $fileName = uniqid() . $file->getClientOriginalName();
-        //     $public_path = '/images/products/' . $fileName;
+        if (Input::hasFile('image')) {
+            $avatar = Input::file('image');
+            $filename = 'product.'.$avatar->getClientOriginalExtension();
+            $save_path = storage_path().'/products/id/'.$products->id.'/uploads/images/product/';
+            $path = $save_path.$filename;
+            $public_path = '/images/products/'.$products->id.'/product/'.$filename;
 
-        //     $file->move($path, $fileName);
-        //     $products->fill(['image' => asset($public_path)])->save();
-        // }
+            // Make the user a folder and set permissions
+            File::makeDirectory($save_path, $mode = 0755, true, true);
+
+            // Save the file to the server
+            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+
+            // Save the public image path
+            $products->image = $public_path;
+            $products->save();
+        }
 
         if ($request->Input('category_id')) {
             $products->category_id = $request->Input('category_id');
@@ -128,28 +135,14 @@ class ProductoController extends Controller
      */
     public function update(ProductoUpdateRequest $request, $id)
     {
-        //dd($request->Select('category_id'));
         $products = Product::find($id);
         $products->fill($request->all())->save();
-
-        // //IMAGE
-        // if ($request->file('image')) {
-        //     $file = $request->file('image');
-        //     $path = public_path() . '/images/products/';
-        //     $fileName = uniqid() . $file->getClientOriginalName();
-        //     $public_path = '/images/products/' . $fileName;
-
-        //     $file->move($path, $fileName);
-        //     $products->fill(['image' => asset($public_path)])->save();
-        // }
 
         if ($request->Input('category_id')) {
             $products->category_id = $request->Input('category_id');
             $products->save();
         }
-
-
-        return redirect()->route('producto.edit', $products->id)->with('info', 'Entrada actualizada con éxito');
+        return redirect()->route('producto.index')->with('info', 'Entrada actualizada con éxito');
     }
 
     /**

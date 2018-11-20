@@ -9,7 +9,7 @@
 @endsection
 
 @section('breadcrumbs_info')
-  hola
+  
 @endsection
 
 @section('template_linked_css')
@@ -20,7 +20,7 @@
     <div class="container-fluid spark-screen">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-
+                
                 <div class="card panel-info">
                     <div class="card-header">
                         <div class="float-left">

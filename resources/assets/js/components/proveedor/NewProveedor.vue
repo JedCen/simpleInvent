@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="card panel-success">
+                <div class="card panel-info">
                     <div class="card-header">
                         <div class="float-left">
                         Lista de Proveedores

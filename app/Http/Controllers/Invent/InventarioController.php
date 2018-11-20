@@ -132,7 +132,13 @@ class InventarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $operations = Operation::where('sell_id', $id);
+        $sells = Sell::find($id);
+
+        $operations->delete();
+        $sells->delete();
+
+        return redirect()->back()->with('message', 'Se elimino correctamente');
     }
 
     public function invlist()
