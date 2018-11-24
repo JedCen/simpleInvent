@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
-use App\Models\Theme;
 use App\Models\User;
 use App\Notifications\SendGoodbyeEmail;
 use App\Traits\CaptureIpTrait;
@@ -80,11 +79,8 @@ class ProfilesController extends Controller
             abort(404);
         }
 
-        $currentTheme = Theme::find($user->profile->theme_id);
-
         $data = [
             'user'         => $user,
-            'currentTheme' => $currentTheme,
         ];
 
         return view('profiles.show')->with($data);
@@ -107,16 +103,8 @@ class ProfilesController extends Controller
                 ->with('error_title', trans('profile.notYourProfileTitle'));
         }
 
-        $themes = Theme::where('status', 1)
-                        ->orderBy('name', 'asc')
-                        ->get();
-
-        $currentTheme = Theme::find($user->profile->theme_id);
-
         $data = [
             'user'         => $user,
-            'themes'       => $themes,
-            'currentTheme' => $currentTheme,
 
         ];
 

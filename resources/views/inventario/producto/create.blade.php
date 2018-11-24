@@ -20,7 +20,7 @@
                             <h4><i class='fab fa-product-hunt'></i> Nuevo producto</h4>
                     </div>
                     <div class="float-right">
-                        <a class="btn btn-adn" href="{{ URL::previous() }}">Cancelar</a>
+                        <a class="btn btn-adn" href="{{ route('producto.index') }}">Cancelar</a>
                 </div>
                 </div>
                 <div class="card-body">
