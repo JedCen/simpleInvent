@@ -50,6 +50,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $this->validate($request, [
             'barcode' => 'required|integer',
             'user_id' => 'required|integer',

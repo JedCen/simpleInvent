@@ -25,6 +25,7 @@ Vue.component("newcliente", require("./components/cliente/NewCliente.vue"));
 Vue.component("newuser", require("./components/proveedor/NewProveedor.vue"));
 Vue.component("stockup", require("./components/inventario/StockUp.vue"));
 Vue.component("venta-up", require("./components/venta/VentaUp.vue"));
+Vue.component("carga-imagen", require("./components/producto/CargaImage.vue"));
 
 const app = new Vue({
     el: '#app'
