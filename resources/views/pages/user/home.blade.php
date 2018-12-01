@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
-@section('template_title')
+@section('htmlheader_title')
     {{ Auth::user()->name }}'s' Homepage
 @endsection
 
 @section('template_fastload_css')
+@endsection
+
+@section('contentheader_title')
+<i class="fas fa-tachometer-alt"></i> Panel de control
 @endsection
 
 @section('content')
@@ -13,7 +17,7 @@
         <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
 
-                @include('panels.welcome-panel')
+                
 
             </div>
         </div>

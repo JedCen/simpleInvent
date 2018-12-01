@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    about
+    Comprobante
 @endsection
 
 @section('contentheader_title')
-    Comprobante
+    Comprobante de venta
 @endsection
 
 @section('template_linked_css')
@@ -27,7 +27,14 @@
                             <i class="fab fa-product-hunt"></i> Comprobante salida # {{ str_pad ($sells->id, 7, '0', STR_PAD_LEFT) }}
                         </div>
                         <div class="float-right">
-                            {!! HTML::icon_link(URL::to(Route('caja.index')), 'fa fa-mail-reply fa-fw', 'Regresar a ventas', array('class' => 'btn btn-sm btn-info')) !!}
+                        <div class="input-group">
+                            {!! HTML::icon_link(URL::to(Route('caja.index')), 'fas fa-reply fa-fw', ' Regresar a ventas', array('class' => 'btn btn-sm btn-secondary')) !!}
+                            {!! Form::model($sells, ['route' => ['sell.print', $sells->id]]) !!}  
+                                <button type="submit" class="btn btn-sm btn-info">
+                                    <i class="fas fa-print"></i>  Ticket
+                                </button>
+                            {!! Form::close() !!}
+                        </div>
                         </div>
                         <!-- /.box-tools -->
                     </div>
@@ -40,7 +47,7 @@
                                         Le atendio:
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input class="form-control" type="text" readonly value="{{ Auth::user()->name }}" />
+                                                <input class="form-control" type="text" readonly value="{{ $sells->user->name }}" />
                                             </div>
                                         </div>
                                     </div>

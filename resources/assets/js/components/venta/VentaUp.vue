@@ -228,6 +228,7 @@ export default {
             toastr.success("Venta: Se realizo correctamente", "Atencion");
             this.resetDatos();
             this.sesionRemove();
+            window.location.href = '/create'
           })
           .catch(error => {
             console.log(error.response);

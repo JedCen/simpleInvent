@@ -7,7 +7,7 @@
 @section('template_linked_css')
   <!-- Css Extras -->
  <style>
-     user-pan{
+     .user-pan{
         color: #867d7d;
         font-size: 1.25em;
         text-decoration-color: rgba(224, 103, 103, 0.9);
@@ -18,7 +18,7 @@
 @endsection
 
 @section('contentheader_title')
-    <user-pan><i class='fa fa-open'></i> Panel de control </user-pan>
+    <div class="user-pan"> <i class="fas fa-tachometer-alt"></i> Panel de control </div>
 @endsection
 
 @section('content')

@@ -11,6 +11,12 @@ use App\Models\Person;
 use App\Models\Product;
 use Auth;
 use DB;
+use Session;
+use Mike42\Escpos\Printer; 
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
 
 
 class VentaController extends Controller
@@ -93,7 +99,7 @@ class VentaController extends Controller
             DB::rollBack();
             throw $e;
         }
-
+        Session::flash('ventaUP', $venta->id);
         return response()
             ->json($return);
     }
@@ -224,4 +230,21 @@ class VentaController extends Controller
             'producto' => $results
         ], 200);
     }
+
+    public function print(Request $request)
+        {
+            try {
+                $connector = new CupsPrintConnector("XP_80");
+                $printer = new Printer($connector);
+                $printer -> text("Hello World!\n");
+                $printer -> cut();
+
+                $printer -> close();
+            } catch(Exception $e) {
+                echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+                $printer -> close();
+            }
+
+            return redirect()->back();
+        }
 }

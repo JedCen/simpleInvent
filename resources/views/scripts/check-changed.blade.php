@@ -14,7 +14,7 @@ $(".btn-save").hide();
     checkChanged();
   });
   function checkChanged() {
-    if($('input').val()){
+    if(!$('input').val()){
       $(".btn-save").hide();
     }
     else {

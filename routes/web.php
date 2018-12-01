@@ -110,12 +110,10 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     Route::get('sells/detail/{id}', ['as' => '{id}', 'uses' => 'VentaController@show']);
     Route::post('save', 'VentaController@store')->name('save');
     Route::delete('sells/destroy/{id}', ['as' => 'sells.destroy', 'uses' => 'VentaController@destroy']);
+    Route::post('sells/print', 'VentaController@print')->name('sell.print');
 
         // Para la caja
     Route::get('caja', ['as' => 'caja.index', 'uses' => 'HomeController@show']);
-    Route::put('caja/update', ['as' => 'caja.process', 'uses' => 'HomeController@process']);
-    Route::get('caja/historial', ['as' => 'caja.history', 'uses' => 'HomeController@history']);
-    Route::get('caja/historial/{id}',['as' => '{id}', 'uses' => 'HomeController@detailone']);
 
         //  Para Producto
     Route::resources([
@@ -143,20 +141,6 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     Route::get('proveedoreslist', 'ProveedoresController@list')->name('proveedorlist');
     Route::get('searchproovedor', 'ProveedoresController@searchproovedor')->name('searchproveedor');
 
-        // Para Inventario
-    Route::resource('inventario', 'Invent\InventarioController');
-    Route::get('abastecer', 'Invent\InventarioController@invlist')->name('abastecerinv');
-    Route::get('abastecimientos', 'Invent\InventarioController@abastecerlist')->name('reabastecerinv');
-    Route::get('inventario/history/{id}', 'Invent\InventarioController@history')->name('inventario.history');
-
-        // Para reportes
-    Route::get('reporte/products', 'Reports\ReporteController@sellbyproduct')->name('sells.product');
-    Route::post('reporte/products', 'Reports\ReporteController@getsellbyproduct')->name('getsells.product');
-    Route::get('reporte/categorias', 'Reports\ReporteController@sellbycategory')->name('sells.category');
-    Route::post('reporte/categorias', 'Reports\ReporteController@getsellbycategory')->name('getsells.category');
-    Route::get('reporte/sells', 'Reports\ReporteController@sellbysells')->name('sells.sells');
-    Route::get('reporte/buys', 'Reports\ReporteController@sellbybuys')->name('sells.buys');
-
         // Para Configuracion
     Route::get('config/config','Configurar\ConfigController@getConfig');
 
@@ -183,6 +167,25 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'twostep']], f
 
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
+
+        // Para Caja Admin
+    Route::put('caja/update', ['as' => 'caja.process', 'uses' => 'HomeController@process']);
+    Route::get('caja/historial', ['as' => 'caja.history', 'uses' => 'HomeController@history']);
+    Route::get('caja/historial/{id}',['as' => '{id}', 'uses' => 'HomeController@detailone']);
+
+        // Para Inventario
+    Route::resource('inventario', 'Invent\InventarioController');
+    Route::get('abastecer', 'Invent\InventarioController@invlist')->name('abastecerinv');
+    Route::get('abastecimientos', 'Invent\InventarioController@abastecerlist')->name('reabastecerinv');
+    Route::get('inventario/history/{id}', 'Invent\InventarioController@history')->name('inventario.history');
+
+        // Para reportes
+    Route::get('reporte/products', 'Reports\ReporteController@sellbyproduct')->name('sells.product');
+    Route::post('reporte/products', 'Reports\ReporteController@getsellbyproduct')->name('getsells.product');
+    Route::get('reporte/categorias', 'Reports\ReporteController@sellbycategory')->name('sells.category');
+    Route::post('reporte/categorias', 'Reports\ReporteController@getsellbycategory')->name('getsells.category');
+    Route::get('reporte/sells', 'Reports\ReporteController@sellbysells')->name('sells.sells');
+    Route::get('reporte/buys', 'Reports\ReporteController@sellbybuys')->name('sells.buys');
 
     //  Para Configuración
     Route::get('/config', 'ConfigController@index')->name('config.index');

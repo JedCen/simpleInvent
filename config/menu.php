@@ -49,21 +49,21 @@ Menu::macro('sidebar', function () {
                 ->add(Link::toUrl('/clientes', '<i class="fa fa-users nav-icon"></i><p>Clientes</p>')->addClass('nav-link')->addParentClass('nav-item'))
                 ->add(Link::toUrl('/proveedor', '<i class="fa fa-list nav-icon"></i><p>Proveedores</p>')->addClass('nav-link')->addParentClass('nav-item'))
        )
-
-        ->add(
-           Menu::adminSubmenuInv('Inventario')
-           ->setActiveClassOnLink()
-                ->add(Link::toUrl('/inventario', '<i class="fa fa-list-alt nav-icon"></i><p>Inventario</p>')->addClass('nav-link')->addParentClass('nav-item'))
-                ->add(Link::toUrl('/abastecer', '<i class="fas fa-sync-alt nav-icon"></i><p>Abastecer</p>')->addClass('nav-link')->addParentClass('nav-item'))
-                ->add(Link::toUrl('/abastecimientos', '<i class="fa fa-history nav-icon"></i><p>Abastecimientos</p>')->addClass('nav-link')->addParentClass('nav-item'))
-                ->add(Link::toUrl('/inventotal', '<i class="fas fa-dollar-sign  nav-icon"></i><p>Inventario Total <span class="right badge badge-danger">Beta</span></p>')->addClass('nav-link')->addParentClass('nav-item'))
-        )->setActiveFromRequest();
+        ->setActiveFromRequest();
        
 });
 
 Menu::macro('sidebarAdmin', function () {
     return Menu::adminlteMenu()
     ->setActiveClass('menu-open active')
+        ->add(
+            Menu::adminSubmenuInv('Inventario')
+            ->setActiveClassOnLink()
+                ->add(Link::toUrl('/inventario', '<i class="fa fa-list-alt nav-icon"></i><p>Inventario</p>')->addClass('nav-link')->addParentClass('nav-item'))
+                ->add(Link::toUrl('/abastecer', '<i class="fas fa-sync-alt nav-icon"></i><p>Abastecer</p>')->addClass('nav-link')->addParentClass('nav-item'))
+                ->add(Link::toUrl('/abastecimientos', '<i class="fa fa-history nav-icon"></i><p>Abastecimientos</p>')->addClass('nav-link')->addParentClass('nav-item'))
+                ->add(Link::toUrl('/inventotal', '<i class="fas fa-dollar-sign  nav-icon"></i><p>Inventario Total <span class="right badge badge-danger">Beta</span></p>')->addClass('nav-link')->addParentClass('nav-item'))
+        )
         ->add(
         Menu::new()
         ->setActiveClassOnLink()

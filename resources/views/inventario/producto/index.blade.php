@@ -77,7 +77,7 @@
     
     
                                         <td>
-                                        {!! HTML::icon_link(URL::to(route('producto.edit', $product->id)), 'fa fa-edit fa-fw','', array('class' => 'btn btn-sm btn-info', 'type' => 'button', 'data-toggle' => 'tooltip', 'title' => 'Editar producto')) !!}
+                                        {!! HTML::icon_link(URL::to(route('producto.edit', $product->id)), 'fas fa-edit','', array('class' => 'btn btn-info btn-sm', 'data-toggle' => 'tooltip', 'title' => 'Editar producto')) !!}
     
                                         @role('admin')
                                         {!! Form::model($product, array('action' => array('ProductoController@destroy', $product->id), 'method' => 'DELETE', 'class' => 'form-inline', 'data-toggle' => 'tooltip', 'title' => 'Eliminar producto permanete')) !!}

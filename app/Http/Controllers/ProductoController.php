@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-use PDF;
 use Image;
 use File;
 
@@ -217,8 +216,7 @@ class ProductoController extends Controller
          **/
         $products = Product::all();
 
-        $pdf = PDF::loadView('inventario.producto.pdf', compact('products'));
-
+        $pdf = \PDF::loadView('inventario.producto.pdf', ['products'=>$products]);
         return $pdf->download('listado.pdf');
     }
 }

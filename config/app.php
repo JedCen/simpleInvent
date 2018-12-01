@@ -149,7 +149,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -171,7 +171,6 @@ return [
         App\Providers\LocalEnvironmentServiceProvider::class,
         jeremykenedy\laravelexceptionnotifier\LaravelExceptionNotifier::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -235,7 +234,7 @@ return [
         'Product'      => App\Models\Product::class,
         'Sell'         => App\Models\Sell::class,
         'Config'        => App\Models\Configuration::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF'          => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

@@ -24,6 +24,11 @@
     <div class="card-body">
         <venta-up></venta-up>
     </div>
+    @if(Session::has('ventaUP'))
+        <div class="card-footer">
+            <p class='alert alert-success'>Venta procesada exitosamente. {!! HTML::icon_link(URL::to('/sells/detail/'.Session::get('ventaUP')), 'far fa-eye fa-fw', 'VER', array('class' => 'btn btn-sm btn-info')) !!} </p>
+        </div>
+    @endif
 </div>
 @endsection
 

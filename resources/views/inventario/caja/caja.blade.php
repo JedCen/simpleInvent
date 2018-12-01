@@ -24,7 +24,9 @@
                         </div>
                         <div class="float-right">
                             <div class="btn-group">
-                                <a href="{{ route('caja.history') }}" class="btn btn-sm btn-secondary "><i class="fa fa-clock"></i> Historial</a>
+                                @role('admin')
+                                    <a href="{{ route('caja.history') }}" class="btn btn-sm btn-secondary "><i class="fa fa-clock"></i> Historial</a>
+                                @endrole
                                 @if($sells->count()>0)
                                     {!! Form::open(array('route' => 'caja.process', 'method' => 'PUT')) !!}
                                         {!! Form::button('<i class="fa fa-box"></i> Corte caja', array('class' => 'btn btn-sm btn-secondary','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmSave', 'data-title' => 'Corte de caja', 'data-message' => 'Esta seguro de realizar el corte de caja?')) !!}

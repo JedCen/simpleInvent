@@ -73,12 +73,6 @@
                                 <a class="btn btn-sm btn-secondary" href="{{ Route('sells.product') }}">
                                     Nueva consulta
                                 </a>
-                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Descargar
-                                </button>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item" href="{{route('producto.pdf')}}">Descargar PDF</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
