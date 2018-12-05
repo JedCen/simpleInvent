@@ -208,3 +208,9 @@
     display: none !important;
   }
 }
+
+@media print {
+  footer {
+    display: none !important;
+  }
+}
