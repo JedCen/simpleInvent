@@ -18,8 +18,8 @@
             <div class="col-md-8 offset-md-2">
                 @if(count($sells)>0 && $sells->operation_type_id == 2)
                 @php
-                    $simbol =Config::find(5)->val;
-                    $valoriva = Config::find(4)->val;
+                    $configSimbMon =Config::find(5)->val;
+                    $configValImp = Config::find(4)->val;
                 @endphp
                 <div class="card panel-success">
                     <div class="card-header with-border">
@@ -29,11 +29,10 @@
                         <div class="float-right">
                         <div class="input-group">
                             {!! HTML::icon_link(URL::to(Route('caja.index')), 'fas fa-reply fa-fw', ' Regresar a ventas', array('class' => 'btn btn-sm btn-secondary')) !!}
-                            {!! Form::model($sells, ['route' => ['sell.print', $sells->id]]) !!}  
+                              
                                 <button type="submit" class="btn btn-sm btn-info">
                                     <i class="fas fa-print"></i>  Ticket
                                 </button>
-                            {!! Form::close() !!}
                         </div>
                         </div>
                         <!-- /.box-tools -->
@@ -84,8 +83,8 @@
                                     <tr>
                                         <td>{{$operation->product->name}}</td>
                                         <td class="text-right">{{$q1=$operation->q}}</td>
-                                        <td class="text-right">{{$simbol}} {{number_format( $q2=$operation->product->price_out, 2)}}</td>
-                                        <td class="text-right">{{$simbol}} {{number_format($q3=$q1*$q2, 2)}}</td>
+                                        <td class="text-right">{{$configSimbMon}} {{number_format( $q2=$operation->product->price_out, 2)}}</td>
+                                        <td class="text-right">{{$configSimbMon}} {{number_format($q3=$q1*$q2, 2)}}</td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -95,14 +94,14 @@
                                     
                                     <tr>
                                         <td colspan="3" class="text-right"><b>Sub Total:</b></td>
-                                        <td class="text-right">{{$simbol}} {{ number_format($sells->total/(1 + ($valoriva/100) ),2,'.',',')}}</td>
+                                        <td class="text-right">{{$configSimbMon}} {{ number_format($sells->total/(1 + ($configValImp/100) ),2,'.',',')}}</td>
                                     </tr>
                                     <td colspan="3" class="text-right"><b>{{ Config::find(3)->val }}:</b></td>
-                                        <td class="text-right">{{$simbol}} {{ number_format(($sells->total/(1 + ($valoriva/100) )) *($valoriva/100),2,'.',',')}}</td>
+                                        <td class="text-right">{{$configSimbMon}} {{ number_format(($sells->total/(1 + ($configValImp/100) )) *($configValImp/100),2,'.',',')}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="text-right"><b>Total:</b></td>
-                                        <td class="text-right">{{$simbol}} {{ number_format($sells->total, 2,'.',',') }}</td>
+                                        <td class="text-right">{{$configSimbMon}} {{ number_format($sells->total, 2,'.',',') }}</td>
                                     </tr>
                                     </tfoot>
                                 </table>

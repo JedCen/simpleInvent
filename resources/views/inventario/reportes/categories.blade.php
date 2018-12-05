@@ -70,7 +70,7 @@
                     <div class="card-body">
                         @php
                             $products = Product::Where('category_id', Request::input('categoria'))->get();
-                            $simbol =Config::find(5)->val;
+                            $configSimbMon =Config::find(5)->val;
                         @endphp
                         @if($products->count()>0)
                         <table id="datatable" class="table table-bordered table-striped">
@@ -79,11 +79,11 @@
                                     <th>Id</th>
                                     <th>Producto</th>
                                     <th>Entradas</th>
-                                    <th>{{$simbol}} Entradas</th>
+                                    <th>{{$configSimbMon}} Entradas</th>
                                     <th>Salidas</th>
-                                    <th>{{$simbol}} Salidas</th>
+                                    <th>{{$configSimbMon}} Salidas</th>
                                     <th>E-S</th>
-                                    <th>{{$simbol}} E-S</th>
+                                    <th>{{$configSimbMon}} E-S</th>
                                 </tr>
                             </thead>
                             @foreach($products as $product)
@@ -104,11 +104,11 @@
                                 <td> {{ $product->id}}</td>
                                 <td> {{ $product->name }}</td>
                                 <td> {{ $input }} </td>
-                                <td> {{$simbol}} {{ $product->price_in*$input }}</td>
+                                <td> {{$configSimbMon}} {{ $product->price_in*$input }}</td>
                                 <td> {{ $output }} </td>
-                                <th> {{$simbol}} {{ $product->price_out*$output }} </th>
+                                <th> {{$configSimbMon}} {{ $product->price_out*$output }} </th>
                                 <td>{{ $input-$output }}</td>
-                                <td> {{$simbol}} {{ ($product->price_in*$input)-($product->price_out*$output) }}</td>
+                                <td> {{$configSimbMon}} {{ ($product->price_in*$input)-($product->price_out*$output) }}</td>
                             </tr>
                             @endforeach
                         </table> 

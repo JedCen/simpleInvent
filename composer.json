@@ -25,7 +25,6 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.5",
-        "mike42/escpos-php": "^2.0",
         "pusher/pusher-php-server": "~3.0",
         "socialiteproviders/37signals": "^3.0",
         "socialiteproviders/generators": "^2.0",

@@ -43,7 +43,7 @@
                             
                             @if($sells->count()>0)
                             @php
-                                $simbol =Config::find(5)->val;
+                                $configSimbMon =Config::find(5)->val;
                             @endphp
                             <?php $total_total = 0; ?>
                             
@@ -81,7 +81,7 @@
                                         }
                                             $total_total += $total;
                                     @endphp 
-                                             <b>{{$simbol}} {{number_format($total,2,".",",")}}</b>
+                                             <b>{{$configSimbMon}} {{number_format($total,2,".",",")}}</b>
                                     </td>
                                     <td>
                                         {{$sell->created_at}}
@@ -90,7 +90,7 @@
                                 @endforeach
 
                             </table>
-                            <h1>Total: {{$simbol}} {{ number_format($total_total,2,".",",") }}</h1>
+                            <h1>Total: {{$configSimbMon}} {{ number_format($total_total,2,".",",") }}</h1>
                             @else 
                                 <div class="jumbotron">
                                     <h2>No hay ventas</h2>

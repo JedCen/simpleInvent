@@ -85,7 +85,7 @@
                                 ->where('created_at', '>=', date('Y-m-d', strtotime(Request::input('ini'))))
                                 ->where('created_at', '<=', carbon\Carbon::parse(Request::input('fin'))->addDays(1))
                                 ->get();
-                        $simbol =Config::find(5)->val;
+                        $configSimbMon =Config::find(5)->val;
                         @endphp
                         @if($operations->count()>0)
                         <table id="datatable" class="table table-bordered table-striped">
@@ -104,9 +104,9 @@
                             @foreach($operations as $operation)
                             <tr>
                                 <td> {{$operation->id}}</td>
-                                <td> {{$simbol}} {{ number_format($operation->total,2,'.',',') }}</td>
-                                <td> {{$simbol}} {{ number_format($operation->discount,2,'.',',') }} </td>
-                                <td> {{$simbol}} {{ number_format($operation->total-$operation->discount,2,'.',',') }}</td>
+                                <td> {{$configSimbMon}} {{ number_format($operation->total,2,'.',',') }}</td>
+                                <td> {{$configSimbMon}} {{ number_format($operation->discount,2,'.',',') }} </td>
+                                <td> {{$configSimbMon}} {{ number_format($operation->total-$operation->discount,2,'.',',') }}</td>
                                 <td> {{ $operation->person->name }} </td>
                                 <td> {{ $operation->user->name }} </td>
                                 <td> {{ $operation->created_at }} </td>

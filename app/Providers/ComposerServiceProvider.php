@@ -17,6 +17,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'layouts.app', 'App\Http\ViewComposers\ProductComposer'
         );
+        View::composer(
+            'layouts.app', 'App\Http\ViewComposers\ConfigComposer'
+        );
     }
 
     /**

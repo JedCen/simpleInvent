@@ -12,7 +12,7 @@
 @section('content')
     <div class="container-fluid spark-screen">
             @php
-                $simbol = Config::find(5)->val;
+                $configSimbMon = Config::find(5)->val;
             @endphp
         <div class="row">
                 
@@ -69,8 +69,8 @@
                                             @endif
                                         </td>
                                         <td>{{$product->name}}</td>
-                                        <td>{{$simbol}} {{number_format($product->price_in,2,'.',',')}}</td>
-                                        <td>{{$simbol}} {{number_format($product->price_out,2,'.',',')}}</td>
+                                        <td>{{$configSimbMon}} {{number_format($product->price_in,2,'.',',')}}</td>
+                                        <td>{{$configSimbMon}} {{number_format($product->price_out,2,'.',',')}}</td>
                                         <td><?php if($product->category_id!=null){echo $product->category->name;}else{ echo "<center>----</center>"; }  ?> </td>
                                         <td>{{$product->inventary_min}}</td>
                                         <td><?php if($product->is_active == 1): ?><i class="fa fa-check"></i><?php endif;?></td>

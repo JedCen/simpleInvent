@@ -19,7 +19,7 @@
             @if ($sells->count()>0)
             @php
                 $total_total = 0;
-                $simbol =Config::find(5)->val;
+                $configSimbMon =Config::find(5)->val;
             @endphp
 			<div class="col-md-9">
 
@@ -49,7 +49,7 @@
                                         @php
                                             $total_total += $sell->total-$sell->discount;
                                         @endphp
-                                          {{$simbol}}  {{number_format( $sell->total-$sell->discount ,2,".",",")}}
+                                          {{$configSimbMon}}  {{number_format( $sell->total-$sell->discount ,2,".",",")}}
                                        
                                     </td>
                                     <td> {{ $sell->created_at }} </td>
@@ -70,7 +70,7 @@
             
                             <div class="info-box-content">
                             <span class="info-box-text">Total corte #{{$id}}</span>
-                                <span class="info-box-number">{{$simbol}} {{number_format($total_total,2,".",",")}}</span>
+                                <span class="info-box-number">{{$configSimbMon}} {{number_format($total_total,2,".",",")}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

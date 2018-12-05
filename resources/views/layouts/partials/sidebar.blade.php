@@ -3,16 +3,13 @@
     <!-- Brand Logo -->
     <a href="{{url('/home')}}" class="brand-link bg-info">
         <!-- User Image -->
-        @php
-            $imageconfig = Config::find(6);
-        @endphp
-        @if ($imageconfig->val != NULL)
-        <img src="{{ $imageconfig->val }}" alt="{{ $imageconfig->name }}" class="brand-image img-circle elevation-3"
+        @if ($configimagen->val != NULL)
+        <img src="{{ $configimagen->val }}" alt="{{ $configimagen->name }}" class="brand-image img-circle elevation-3"
             style="opacity: .8"> 
         @else
             <img src="{{ Gravatar::get(Auth::user()->email) }}" alt="{{ Auth::user()->name }}" class="brand-image img-circle elevation-3" style="opacity: .8">        
         @endif
-        <span class="brand-text font-weight-light">{{ Config::find(1)->val }}</span>
+        <span class="brand-text font-weight-light">{{ $configNomEmp }}</span>
     </a>
 
     <!-- Sidebar -->

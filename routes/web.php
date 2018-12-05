@@ -110,7 +110,6 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     Route::get('sells/detail/{id}', ['as' => '{id}', 'uses' => 'VentaController@show']);
     Route::post('save', 'VentaController@store')->name('save');
     Route::delete('sells/destroy/{id}', ['as' => 'sells.destroy', 'uses' => 'VentaController@destroy']);
-    Route::post('sells/print', 'VentaController@print')->name('sell.print');
 
         // Para la caja
     Route::get('caja', ['as' => 'caja.index', 'uses' => 'HomeController@show']);
