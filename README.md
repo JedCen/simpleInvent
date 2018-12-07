@@ -35,7 +35,7 @@ Laravel 5.6 with user authentication, registration with email confirmation, soci
 1. Download the aplication
 2. Create a MySQL database for the project
     * ```mysql -u root -p```, if using Vagrant: ```mysql -u homestead -psecret```
-    * ```create database laravelAuth;```
+    * ```create database for this WebApp;```
     * ```\q```
 3. From the projects root run `cp .env.example .env`
 4. Configure your `.env` file
