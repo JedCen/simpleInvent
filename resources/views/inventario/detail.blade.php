@@ -27,10 +27,10 @@
                             <i class="fab fa-product-hunt"></i> Comprobante salida # {{ str_pad ($sells->id, 7, '0', STR_PAD_LEFT) }}
                         </div>
                         <div class="float-right">
-                        <div class="input-group">
+                        <div class="input-group oculto-impresion">
                             {!! HTML::icon_link(URL::to(Route('caja.index')), 'fas fa-reply fa-fw', ' Regresar a ventas', array('class' => 'btn btn-sm btn-secondary')) !!}
                               
-                                <button type="submit" class="btn btn-sm btn-info">
+                                <button type="submit" class="btn btn-sm btn-info" onClick="window.print()">
                                     <i class="fas fa-print"></i>  Ticket
                                 </button>
                         </div>
@@ -67,7 +67,7 @@
                                 </div>
 
                                 <hr />
-
+                                <div class="table-responsive-sm">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -105,7 +105,7 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-
+                                </div>
                             </div>
                         </div>
                         
