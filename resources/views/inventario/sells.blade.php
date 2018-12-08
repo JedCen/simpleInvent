@@ -50,13 +50,15 @@
                             {{ $sell->created_at }}
                         </td>
                         <td>
+                        <div class="input-group">
                             {!! HTML::icon_link(URL::to('/sells/detail/'.$sell->id), 'far fa-eye fa-fw', 'VER', array('class' => 'btn btn-sm btn-info')) !!}
                             @role('admin') 
-                            {!! Form::model($sell, array('action' => array('VentaController@destroy', $sell->id), 'method' => 'DELETE', 'class' => 'form-inline', 'data-toggle' => 'tooltip', 'title' => 'Eliminar venta permanete')) !!}
+                            {!! Form::model($sell, array('action' => array('VentaController@destroy', $sell->id), 'method' => 'DELETE', 'data-toggle' => 'tooltip', 'title' => 'Eliminar venta permanete')) !!}
                                 {!! Form::hidden('_method', 'DELETE') !!}
-                                {!! Form::button('<i class="fas fa-eraser fa-fw" aria-hidden="true"></i> Eliminar', array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Eliminar Venta Permanente', 'data-message' => 'Esta seguro de eliminar esta venta?')) !!}
+                                {!! Form::button('<i class="fas fa-eraser fa-fw" aria-hidden="true"></i> Eliminar', array('class' => 'btn btn-sm btn-danger','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Eliminar Venta Permanente', 'data-message' => 'Esta seguro de eliminar esta venta?')) !!}
                             {!! Form::close() !!}
                             @endrole
+                        </div>
                         </td>
                     </tr>
 

@@ -69,17 +69,18 @@
                                     <td style="width:10%;">{{$category->id}}</td>
                                     <td style="width:60%;">{{$category->name}}</td>
                                     <td>
-                                    <button class="edit-modal btn btn-info btn-sm" data-toggle="modal" data-target="#editModal-{{$category->id}}">
-                                    <span class="fa fa-edit"></span></button>
+                                    <div class="input-group">
+                                        <button class="edit-modal btn btn-info btn-sm" data-toggle="modal" data-target="#editModal-{{$category->id}}">
+                                        <span class="fa fa-edit"></span></button>
 
-                                    @include('inventario.categoria.partials.modal')
+                                        @include('inventario.categoria.partials.modal')
 
-                                    @role('admin')
-                                    {!! Form::model($category, array('action' => array('CategoriaController@destroy', $category->id), 'method' => 'DELETE', 'class' => 'form-inline')) !!}
-                                        {!! Form::button('<i class="fa fa-trash fa-fw" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm','type' => 'submit', 'style' =>'width: 100%;')) !!}
-                                    {!! Form::close() !!}
-                                    @endrole
-                                    
+                                        @role('admin')
+                                        {!! Form::model($category, array('action' => array('CategoriaController@destroy', $category->id), 'method' => 'DELETE', 'class' => 'form-inline')) !!}
+                                            {!! Form::button('<i class="fa fa-trash fa-fw" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm','type' => 'submit')) !!}
+                                        {!! Form::close() !!}
+                                        @endrole
+                                    </div>  
                                     </td>
                                 </tr>
                                 @endforeach

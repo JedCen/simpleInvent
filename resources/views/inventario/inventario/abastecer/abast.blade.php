@@ -17,7 +17,7 @@
 	<div class="container-fluid spark-screen">
 		<div class="row">
 			<div class="col-md-12">
-                    @if(count($sells)>0 && $sells->operation_type_id == 1)
+                    @if($sells->count()>0 && $sells->operation_type_id == 1)
                     @php
                         $simbol = Config::find(5)->val;
                     @endphp

@@ -29,7 +29,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Productos</span>
-                    <span class="info-box-number">{{ count($products) }}</span>
+                    <span class="info-box-number">{{ $products->count() }}</span>
                 </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -42,7 +42,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Clientes</span>
-                    <span class="info-box-number"> {{ count($clientes) }} </span>
+                    <span class="info-box-number"> {{ $clientes->count() }} </span>
                 </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -55,7 +55,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Ventas Mensual</span>
-                    <span class="info-box-number"> {{ count($sells) }} </span>
+                    <span class="info-box-number"> {{ $sells->count() }} </span>
                 </div>
                 <!-- /.info-box-content -->
                 </div>

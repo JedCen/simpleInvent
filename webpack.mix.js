@@ -20,7 +20,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .sourceMaps()
    .sass('resources/assets/sass/app.scss', 'public/css')
    .copy('node_modules/admin-lte/dist/img', 'public/img')
-   .copy('node_modules/admin-lte/plugins', 'public/plugins')
+   .copy('node_modules/admin-lte/plugins/datatables', 'public/plugins/datatables')
   //  .copy('node_modules/admin-lte/dist/js/pages/dashboard.js', 'public/js')
 
 if (mix.inProduction) {

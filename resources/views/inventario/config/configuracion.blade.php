@@ -10,7 +10,7 @@
 <!-- Css Extras -->
 
 @endsection
- 
+
 @section('content')
 <div class="container-fluid spark-screen">
     <div class="row">
@@ -56,7 +56,7 @@
                                 <input type="text" class="form-control" id="validationCustom01" placeholder="Nombre de la empresa" required
                                 name="{{ $configs->find(1)->short }}" value="{{ $configs->find(1)->val }}">
                                 <div class="invalid-feedback">
-                                    Looks good!
+                                    Agregar nombre de la empresa
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
@@ -74,7 +74,7 @@
                                 <input type="text" class="form-control" id="validationCustom03" placeholder="IVA" required
                                 name="{{ $configs->find(3)->short }}" value="{{ $configs->find(3)->val }}">
                                 <div class="invalid-feedback">
-                                    Please provide a valid city.
+                                    Nombre impuesto, ejem: IVA.
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -86,7 +86,7 @@
                                     <input type="text" class="form-control" id="validationCustom04" placeholder="16" aria-describedby="inputGroupPrepend01" required
                                     name="{{ $configs->find(4)->short }}" value="{{ $configs->find(4)->val }}">
                                     <div class="invalid-feedback">
-                                        Please choose a username.
+                                        Valor de impuesto.
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                     <input type="text" class="form-control" id="validationCustom05" placeholder="$" aria-describedby="inputGroupPrepend02" required
                                     name="{{ $configs->find(5)->short }}" value="{{ $configs->find(5)->val }}">
                                     <div class="invalid-feedback">
-                                        Please choose a username.
+                                        Simbolo de la moneda.
                                     </div>
                                 </div>
                             </div>

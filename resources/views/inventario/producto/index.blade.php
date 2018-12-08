@@ -77,14 +77,16 @@
     
     
                                         <td>
-                                        {!! HTML::icon_link(URL::to(route('producto.edit', $product->id)), 'fas fa-edit','', array('class' => 'btn btn-info btn-sm', 'data-toggle' => 'tooltip', 'title' => 'Editar producto')) !!}
-    
-                                        @role('admin')
-                                        {!! Form::model($product, array('action' => array('ProductoController@destroy', $product->id), 'method' => 'DELETE', 'class' => 'form-inline', 'data-toggle' => 'tooltip', 'title' => 'Eliminar producto permanete')) !!}
-                                            {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::button('<i class="fa fa-trash fa-fw" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Eliminar Producto Permanente', 'data-message' => 'Esta seguro de eliminar el producto ' .$product->name.'?')) !!}
-                                        {!! Form::close() !!}
+                                        <div class="input-group">
+                                            {!! HTML::icon_link(URL::to(route('producto.edit', $product->id)), 'fas fa-edit','', array('class' => 'btn btn-info btn-sm', 'data-toggle' => 'tooltip', 'title' => 'Editar producto')) !!}
+        
+                                            @role('admin')
+                                            {!! Form::model($product, array('action' => array('ProductoController@destroy', $product->id), 'method' => 'DELETE', 'data-toggle' => 'tooltip', 'title' => 'Eliminar producto permanete')) !!}
+                                                {!! Form::hidden('_method', 'DELETE') !!}
+                                                {!! Form::button('<i class="fa fa-trash fa-fw" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm','type' => 'button' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Eliminar Producto Permanente', 'data-message' => 'Esta seguro de eliminar el producto ' .$product->name.'?')) !!}
+                                            {!! Form::close() !!}
                                         @endrole
+                                        </div>
                                         </td>
                                     </tr>
                                     @endforeach

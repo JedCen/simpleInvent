@@ -9,7 +9,6 @@ require('./bootstrap');
 require('hideshowpassword');
 var password = require('password-strength-meter');
 
-require('./jqueryui');
 
 
 /**

@@ -22,6 +22,7 @@ Thumbs.db
 /.idea/*
 .phpintel/*
 /.phpintel/*
+.vscode/*
 
 ### DIFFERENT TYPE OF MASTER CONFIGS ###
 .env
@@ -34,11 +35,11 @@ composer.lock
 /vendor
 Homestead.yaml
 Homestead.json
+/storage/configs
 /storage/debugbar
 /storage/framework
 /storage/logs
+/storage/products
 /storage/users
-package-lock.json
-package-lock.json
 .gitignore
 package-lock.json

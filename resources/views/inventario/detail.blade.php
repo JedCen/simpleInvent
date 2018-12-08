@@ -16,7 +16,7 @@
     <div class="container-fluid spark-screen">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                @if(count($sells)>0 && $sells->operation_type_id == 2)
+                @if($sells->count()>0 && $sells->operation_type_id == 2)
                 @php
                     $configSimbMon =Config::find(5)->val;
                     $configValImp = Config::find(4)->val;
