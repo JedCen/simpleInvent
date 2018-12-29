@@ -5,9 +5,16 @@
 @section('contentheader_title')
 <i class="fa fa-history"></i> Abastecimientos
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('reabastecer') }}
+@endsection
+
+@section('template_linked_css')
+  <!-- Css Extras -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
+@endsection
 
 @section('content')
-
 <div class="card panel-info @role('admin', true) panel-info  @endrole">
     <div class="card-header">
             Bienvenido {{ Auth::user()->name }} 
@@ -35,7 +42,8 @@
             </div>
         @endif
         <br>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+        <table id="data-table" class="table table-bordered table-hover">
             <thead>
                 <th></th>
                 <th>Producto</th>
@@ -77,6 +85,7 @@
             </tr>
             @endforeach
         </table>
+        </div>
         @else
         <div class="jumbotron">
             <h2>No hay datos</h2>
@@ -92,5 +101,6 @@
 
   @include('scripts.delete-modal-script')
   @include('scripts.tooltips')
+  @include('scripts.datatables')
 
 @endsection

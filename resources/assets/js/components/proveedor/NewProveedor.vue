@@ -26,6 +26,7 @@
                             </div>
                           </form>
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-bordered table-striped" v-if="proveedor.length > 0">
                             <tbody>
                                 <tr>
@@ -57,6 +58,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="float-right">

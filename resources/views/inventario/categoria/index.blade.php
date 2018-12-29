@@ -7,6 +7,9 @@
 @section('contentheader_title')
     <i class='fa fa-list'></i> Lista de Categorías
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('categoria') }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->

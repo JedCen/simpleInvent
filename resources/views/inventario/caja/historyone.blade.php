@@ -7,6 +7,9 @@
 @section('contentheader_title')
 <i class="fa fa-archive"></i> Historial de caja
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('historyone', $id) }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->

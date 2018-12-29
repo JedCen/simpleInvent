@@ -10,8 +10,16 @@
 <!-- Css Extras -->
 @endsection
 
-@section('content') @php $levelAmount = 'level'; if (Auth::User()->level() >= 2) { $levelAmount = 'levels';
-}
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('venta') }}
+@endsection
+
+@section('content') 
+@php 
+    $levelAmount = 'level'; 
+    if (Auth::User()->level() >= 2) { 
+        $levelAmount = 'levels';
+    }
 @endphp
 
 

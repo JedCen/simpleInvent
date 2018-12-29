@@ -7,6 +7,9 @@
 @section('contentheader_title')
     <i class="fa fa-list"></i> Listas de proveedores
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('proveedor') }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->

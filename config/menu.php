@@ -72,7 +72,7 @@ Menu::macro('sidebarAdmin', function () {
             ->add(Link::toUrl('/reporte/products', '<i class="fas fa-chart-line nav-icon"></i><p>Por producto</p>')->addClass('nav-link')->addParentClass('nav-item'))
             ->add(Link::toUrl('/reporte/categorias', '<i class="fas fa-th-list nav-icon"></i><p>Por categoría</p>')->addClass('nav-link')->addParentClass('nav-item'))
             ->add(Link::toUrl('/reporte/sells', '<i class="fas fa-list nav-icon"></i><p>Ventas</p>')->addClass('nav-link')->addParentClass('nav-item'))
-            ->add(Link::toUrl('/reporte/buys', '<i class="fas fa-list nav-icon"></i><p>Compas</p>')->addClass('nav-link')->addParentClass('nav-item'))
+            ->add(Link::toUrl('/reporte/buys', '<i class="fas fa-list nav-icon"></i><p>Compras</p>')->addClass('nav-link')->addParentClass('nav-item'))
        )
        ->add(
         Menu::new()

@@ -7,9 +7,13 @@
 @section('contentheader_title')
     <i class='fa fa-archive'></i> Caja
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('caja') }}
+@endsection
 
 @section('template_linked_css')
-  <!-- Css Extras -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
 @endsection
 
 @section('content')
@@ -48,7 +52,8 @@
                             <?php $total_total = 0; ?>
                             
                             <br>
-                            <table class="table table-hover">
+                            <div class="table-responsive">
+                            <table id="data-table" class="table table-hover">
                                 <thead>
                                     <th></th>
                                     <th>Producto</th>
@@ -90,7 +95,9 @@
                                 @endforeach
 
                             </table>
-                            <h1>Total: {{$configSimbMon}} {{ number_format($total_total,2,".",",") }}</h1>
+                            </div>
+                            <hr>
+                            <h3>Total: {{$configSimbMon}} {{ number_format($total_total,2,".",",") }}</h3>
                             @else 
                                 <div class="jumbotron">
                                     <h2>No hay ventas</h2>
@@ -110,4 +117,5 @@
 @section('footer_scripts')
 <!-- Scripts Extras -->
     @include('scripts.save-modal-script')
+    @include('scripts.datatables')
 @endsection

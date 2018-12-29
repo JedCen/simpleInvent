@@ -10,11 +10,7 @@
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
-                @yield('breadcrumbs_info')
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
+                @yield('breadcrumbs')
             </div>
             <!-- /.col -->
         </div>

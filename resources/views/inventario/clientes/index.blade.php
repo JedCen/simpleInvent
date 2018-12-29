@@ -7,6 +7,9 @@
 @section('contentheader_title')
     <i class='fa fa-user'></i> Lista de clientes
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('cliente') }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->

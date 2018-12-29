@@ -12,19 +12,22 @@ var password = require('password-strength-meter');
 
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-//Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('users-count', require('./components/UsersCount.vue'));
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).defaul
+Vue.component('users-count', require('./components/UsersCount.vue').default);
 // Categoria componente
-Vue.component("newcliente", require("./components/cliente/NewCliente.vue"));
-Vue.component("newuser", require("./components/proveedor/NewProveedor.vue"));
-Vue.component("stockup", require("./components/inventario/StockUp.vue"));
-Vue.component("venta-up", require("./components/venta/VentaUp.vue"));
-Vue.component("carga-imagen", require("./components/producto/CargaImage.vue"));
+Vue.component("newcliente", require('./components/cliente/NewCliente.vue').default);
+Vue.component('newuser', require('./components/proveedor/NewProveedor.vue').default);
+Vue.component('stockup', require('./components/inventario/StockUp.vue').default);
+Vue.component('venta-up', require('./components/venta/VentaUp.vue').default);
+Vue.component('carga-imagen', require('./components/producto/CargaImage.vue').default);
 
 const app = new Vue({
     el: '#app'

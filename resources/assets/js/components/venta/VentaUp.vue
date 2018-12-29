@@ -2,14 +2,14 @@
 <div>
 	<div class="well">
         <div class="row">
-            <div class="col-6 col-sm-6">
+            <div class="col-sm-6">
                 <input name="provId" type="hidden" v-model="receiversProv.prov_id">
                   <input id="proveedor" class="form-control" type="text" placeholder="Nombre del Cliente..." v-model="receiversProv.name">
             </div>
-            <div class="col-2 col-sm-2">
+            <div class="col-sm-2">
                 <input class="form-control" type="text" placeholder="RFC" readonly  disabled v-model="receiversProv.rfc">
             </div>
-            <div class="col-4 col-sm-4">
+            <div class="col-sm-4">
                 <input class="form-control" type="text" placeholder="Dirección" readonly  disabled v-model="receiversProv.address1">
             </div>
         </div>
@@ -17,14 +17,14 @@
 
     <div class="well">
         <div class="row">
-            <div class="col-5 col-sm-5">
+            <div class="col-sm-5">
                 <input type="hidden" v-model="product_id">
-                <input id="producto" class="form-control" type="text" placeholder="Nombre del producto" v-model="receiversProd.name">
+                <input id="producto" ref="producto" class="form-control" type="text" placeholder="Nombre del producto" v-model="receiversProd.name">
             </div>
-            <div class="col-2 col-sm-2">
-                <input class="form-control" type="text" placeholder="Cantidad" v-model="quantity">
+            <div class="col-sm-2">
+                <input class="form-control" type="text" ref="cantidad" placeholder="Cantidad" v-model="quantity">
             </div>
-            <div class="col-2 col-sm-2">
+            <div class="col-sm-2">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Stock</span>
@@ -32,7 +32,7 @@
                     <input class="form-control" type="text" aria-label="Stock" placeholder="Stock" readonly v-model="stock">
                 </div>
             </div>
-            <div class="col-2 col-sm-2">
+            <div class="col-sm-2">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">{{ configs.symbol }}</span>
@@ -40,7 +40,7 @@
               <input type="text" class="form-control" aria-label="Precio" readonly v-model="receiversProd.price">
             </div>
             </div>
-            <div class="col-1 col-sm-1">
+            <div class="col-sm-1">
                 <button  class="btn btn-primary form-contro" id="btn-agregar" v-if="quantity > 0 && receiversProd.name != null" v-on:click="addProducToDetail">
                     <i class="fa fa-plus"></i>
                 </button>
@@ -51,6 +51,7 @@
         </div>
     </div>
     <hr />
+    <div class="table-responsive">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -87,12 +88,13 @@
         </tr>
         </tfoot>
     </table>
-      <div class="col-md-3 float-left">
+    </div>
+      <div class="col-sm-3 float-left">
         <button class="btn btn-danger btn-block"  v-if="detail.length > 0 && proveedor_id > 0" @click.prevent="resetDatos">
           <i class="fas fa-exclamation-triangle"></i> Cancelar
         </button>
       </div>
-      <div class="col-md-3 float-right">
+      <div class="col-sm-3 float-right">
         <button class="btn btn-warning btn-block" v-if="detail.length > 0 && proveedor_id > 0" @click="newAbastecer">
            <i class="far fa-save"></i> Guardar 
         </button>
@@ -208,6 +210,7 @@ export default {
         vm.stock = "";
         this.calculate();
         toastr.info("Se agrego correctamente!", "Atención");
+        vm.$refs.producto.focus();
         this.saveDetails();
       }
     },
@@ -293,6 +296,7 @@ export default {
                 "Cliente: " + vm.receiversProv.name,
                 "Se agrego correctamente!"
               );
+              vm.$refs.producto.focus();
             }
           }
         };
@@ -320,6 +324,7 @@ export default {
                 "Producto: " + vm.receiversProd.name,
                 "Se agrego correctamente!"
               );
+              vm.$refs.cantidad.focus();
             }
           }
         };

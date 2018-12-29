@@ -7,6 +7,9 @@
 @section('contentheader_title')
     <i class="fa fa-history"></i> Abastecer
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('abastecer') }}
+@endsection
 
 @section('content')
 

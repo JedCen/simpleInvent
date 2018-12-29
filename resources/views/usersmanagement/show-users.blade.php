@@ -3,6 +3,9 @@
 @section('htmlheader_title')
     {!! trans('usersmanagement.showing-all-users') !!}
 @endsection
+@section('contentheader_title')
+    <i class='fa fa-list'></i> Lista de usuarios
+@endsection
 
 @section('template_linked_css')
     @if(config('laravelusers.enabledDatatablesJs'))
@@ -151,7 +154,7 @@
 @endsection
 
 @section('footer_scripts')
-    @if ((count($users) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
+    @if (($users->count() > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
         @include('scripts.datatables')
     @endif
     @include('scripts.delete-modal-script')

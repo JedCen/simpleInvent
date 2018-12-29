@@ -7,6 +7,14 @@
 @section('contentheader_title')
     <i class='fab fa-product-hunt'></i> Lista de productos
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('producto') }}
+@endsection
+
+@section('template_linked_css')
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
+@endsection
 
 
 @section('content')
