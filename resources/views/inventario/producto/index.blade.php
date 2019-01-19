@@ -33,14 +33,13 @@
                             <div class="float-right">
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                     {!! HTML::icon_link(URL::to(route('producto.create')), 'fa fa-plus-circle', ' Agregar Producto', array('class' => 'btn btn-sm btn-secondary')) !!}
-                                    <div class="btn-group" role="group">
+                                    
                                     <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Descargar
                                     </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                             <a class="dropdown-item" href="{{route('producto.pdf')}}">Descargar PDF</a>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
