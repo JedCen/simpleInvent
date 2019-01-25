@@ -7,10 +7,13 @@
 @section('contentheader_title')
     <i class="fas fa-chart-line"></i> Reporte de ventas
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('rep_venta') }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->
- 
+  <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
 @endsection
 
 @section('content')
@@ -88,7 +91,8 @@
                         $configSimbMon =Config::find(5)->val;
                         @endphp
                         @if($operations->count()>0)
-                        <table id="datatable" class="table table-bordered table-striped">
+                        <div class="table-responsive">
+                        <table id="data-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -112,7 +116,8 @@
                                 <td> {{ $operation->created_at }} </td>
                             </tr>
                             @endforeach
-                        </table> 
+                        </table>
+                        </div> 
                         @else
                             <div class="jumbotron">
                                 <h2>No hay operaciones</h2>
@@ -130,5 +135,5 @@
 
 @section('footer_scripts')
 <!-- Scripts Extras -->
-
+@include('scripts.datatables')
 @endsection

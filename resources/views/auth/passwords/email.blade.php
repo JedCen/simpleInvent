@@ -48,9 +48,9 @@
                     <p class="mb-1">
                         <a href="{{ url('/login') }}">Log in</a>
                     </p>
-                    <p class="mb-0">
+                    {{-- <p class="mb-0">
                         <a href="{{ url('/register') }}" class="text-center">{{ trans('message.registermember') }}</a>
-                    </p>
+                    </p> --}}
                 </div>
                 <!-- /.login-box-body -->
             </div>

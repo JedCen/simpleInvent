@@ -7,6 +7,9 @@
 @section('contentheader_title')
     Comprobante de venta
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('detalles', $sells) }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->
@@ -67,14 +70,14 @@
                                 </div>
 
                                 <hr />
-                                <div class="table-responsive-sm">
+                                <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th>Producto</th>
-                                        <th style="width:100px;">Cantidad</th>
-                                        <th style="width:100px;">P.U</th>
-                                        <th style="width:100px;">Total</th>
+                                        <th>Cantidad</th>
+                                        <th>P.U</th>
+                                        <th>Total</th>
                                     </tr>
                                     </thead>
                                     <tbody>

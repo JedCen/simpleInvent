@@ -17,6 +17,10 @@
  </style>
 @endsection
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('home') }}
+@endsection
+
 @section('contentheader_title')
     <div class="user-pan"> <i class="fas fa-tachometer-alt"></i> Panel de control </div>
 @endsection

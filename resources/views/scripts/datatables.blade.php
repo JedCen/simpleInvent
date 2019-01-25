@@ -1,10 +1,3 @@
-{{-- FYI: Datatables do not support colspan or rowpan --}}
-@section('template_linked_css')
-  <!-- Css Extras -->
-  <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
-@endsection
-
   <!-- DataTables -->
   <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
   <script>

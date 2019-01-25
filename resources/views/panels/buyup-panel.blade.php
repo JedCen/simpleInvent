@@ -11,15 +11,16 @@
     <div class="card-body">
             <div class="list-group"> 
                 @foreach($product5 as  $produc)
-                    <a class="list-group-item list-group-item-action clearfix" href="{{ route('producto.edit', $produc->id) }} ">
-                            <div class="list-group-item-heading">
-                            @if(!isset($produc->image)) <img class="image-prod rounded-circle" src="{{ asset('img/default-150x150.png') }}"> @else <img class="image-prod rounded-circle" src="{{ $produc->image }}" alt="{{ $produc->name }}" /> @endif
-                                {{ $produc->name }}
-                                <span class="badge badge-warning badge-pill text-white float-right">
+                    <a class="list-group-item list-group-item-action" href="{{ route('producto.edit', $produc->id) }} ">
+                            
+                            @if(!isset($produc->image)) <img class="image-prod rounded-circle" src="{{ asset('img/default-150x150.png') }}"> @else <img class="image-prod rounded-circle float-left" src="{{ $produc->image }}" alt="{{ $produc->name }}" /> @endif
+                                <small class="badge badge-warning badge-pill float-right">
                                 {{$simbol}} {{ $produc->price_out }}
-                                </span>
-                            </div>
-                            <span class="list-group-item-text float-right">
+                                </small>
+                            
+                            <hr>
+                            {{ $produc->name }}
+                            <span class="text-muted float-right">
                             {{$produc->category->name}}
                         </span>
                     </a>

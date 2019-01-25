@@ -21,17 +21,17 @@
                     <login-form name="{{ config('auth.providers.users.field','email') }}" domain="{{ config('auth.defaults.domain','') }}"></login-form>
 
                     {{--
-                        @include('auth.partials.social_login') --}}
+                        @include('auth.partials.social_login') 
                     <div class="social-auth-links text-center mb-3">
                         <p>- OR -</p>
                         @include('partials.socials')
-                    </div>
+                    </div> --}}
                     <p class="mb-1">
                         <a href="{{ url('/password/reset') }}">{{ trans('message.forgotpassword') }}</a>
                     </p>
-                    <p class="mb-0">
+                    {{-- <p class="mb-0">
                         <a href="{{ url('/register') }}" class="text-center">{{ trans('message.registermember') }}</a>
-                    </p>
+                    </p> --}}
                 </div>
             </div>
 

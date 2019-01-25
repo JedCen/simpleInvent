@@ -1,15 +1,15 @@
 <template>
  <form method="post" @submit.prevent="submit" @keydown="clearErrors($event.target.name)">
   <div class="alert alert-success text-center" v-show="form.succeeded" id="result"> {{ trans('message.loggedin') }} <i class="fas fa-sync fa-spin"></i> {{ trans('message.entering') }}</div>
-  <div class="form-group has-feedback" :class="{ 'has-error': form.errors.has('email') }" v-if="type === 'email'">
-   <input type="email" class="form-control" :placeholder="placeholder" :name="name" value="" v-model="form.email" @change="adddomain" autofocus/>
-   <span class="fa form-control-feedback" :class="[icon]"></span>
+  
+  <div class="form-group" v-if="type === 'email'">
+   <input type="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" :placeholder="placeholder" :name="name" value="" v-model="form.email" @change="adddomain" autofocus/>
    <transition name="fade">
     <span class="help-block" v-if="form.errors.has('email')" v-text="form.errors.get('email')" id="validation_error_email"></span>
    </transition>
   </div>
 
-  <div class="form-group mb-3 has-feedback" :class="{ 'has-error': form.errors.has('username') }" v-else>
+  <div class="form-group mb-3" :class="{ 'is-invalid': form.errors.has('username') }" v-else>
    <input type="text" class="form-control" :placeholder="placeholder" :name="name" v-model="form.username" @change="adddomain" autofocus/>
    <span class="fa form-control-feedback" :class="[icon]"></span>
    <transition name="fade">
@@ -17,14 +17,13 @@
    </transition>
   </div>
 
-
-  <div class="form-group mb-3 has-feedback" :class="{ 'has-error': form.errors.has('password') }">
-   <input type="password" class="form-control" :placeholder="trans('message.password')" name="password" v-model="form.password"/>
-   <span class="fa fa-lock form-control-feedback"></span>
+  <div class="form-group mb-3">
+   <input type="password" class="form-control" :class="{ 'is-invalid': form.errors.has('password') }" :placeholder="trans('message.password')" name="password" v-model="form.password"/>
    <transition name="fade">
     <span class="help-block" v-if="form.errors.has('password')" v-text="form.errors.get('password')" id="validation_error_password"></span>
    </transition>
   </div>
+
   <div class="row">
    <div class="col-8">
     <div class="checkbox icheck">
@@ -34,7 +33,7 @@
     </div>
    </div>
    <div class="col-4">
-    <button type="submit" class="btn btn-primary pull-right" v-text="trans('message.buttonsign')" :disabled="form.errors.any()"><i v-if="form.submitting" class="fa fa-refresh fa-spin"></i></button>
+    <button type="submit" class="btn btn-primary float-right" v-text="trans('message.buttonsign')" :disabled="form.errors.any()"><i v-if="form.submitting" class="fas fa-redo fa-spin"></i></button>
    </div>
   </div>
  </form>

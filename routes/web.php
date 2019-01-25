@@ -17,7 +17,8 @@
 Route::get('/', 'WelcomeController@welcome')->name('welcome');
 
 // Authentication Routes
-Auth::routes();
+
+Auth::routes(['register' => false]);
 
 // Public Routes
 Route::group(['middleware' => ['web', 'activity']], function () {
@@ -107,7 +108,7 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     Route::get('searchclient', ['as' => ' searchclient', 'uses' => 'VentaController@searchClient']);
     Route::get('searchproductsell', ['as' => 'searchproductsell', 'uses' => 'VentaController@searchProductSell']);
     Route::get('searchproduct', ['as' => 'searchproduct', 'uses' => 'VentaController@searchProduct']);
-    Route::get('sells/detail/{id}', ['as' => '{id}', 'uses' => 'VentaController@show']);
+    Route::get('sells/detail/{id}', ['as' => 'sells.details', 'uses' => 'VentaController@show']);
     Route::post('save', 'VentaController@store')->name('save');
     Route::delete('sells/destroy/{id}', ['as' => 'sells.destroy', 'uses' => 'VentaController@destroy']);
 
@@ -170,7 +171,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'twostep']], f
         // Para Caja Admin
     Route::put('caja/update', ['as' => 'caja.process', 'uses' => 'HomeController@process']);
     Route::get('caja/historial', ['as' => 'caja.history', 'uses' => 'HomeController@history']);
-    Route::get('caja/historial/{id}',['as' => '{id}', 'uses' => 'HomeController@detailone']);
+    Route::get('caja/historial/{id}',['as' => 'caja.historyone', 'uses' => 'HomeController@detailone']);
 
         // Para Inventario
     Route::resource('inventario', 'Invent\InventarioController');

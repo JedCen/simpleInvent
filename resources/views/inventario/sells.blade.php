@@ -3,9 +3,16 @@
 @section('htmlheader_title')
     Lista ventas
 @endsection
+@section('template_linked_css')
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
+@endsection
 
 @section('contentheader_title')
     <i class='glyphicon glyphicon-shopping-cart'></i> Lista de Ventas
+@endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('sells') }}
 @endsection
 
 @section('content')
@@ -25,6 +32,7 @@
                     </div>
                 </div>
             <div class="card-body">
+            <div class="table-responsive">
             <table id="data-table" class="table table-striped">
                 <thead>
                     <th>Productos</th>
@@ -34,17 +42,14 @@
                 </thead>
                 @foreach($products as $sell)
                     @php
-                    $operations = Operation::getAllProductsBySellId($sell->id);
-                    $total= $sell->total-$sell->discount;
-
+                        $operations = Operation::getAllProductsBySellId($sell->id);
+                        $total= $sell->total-$sell->discount;
                     @endphp
                     <tr>
                         <td>
                             {{ count($operations) }}
-                        <td>
-                            
+                        <td>  
                             <b>{{$simbol}} {{ number_format($total) }} </b>         
-
                         </td>
                         <td>
                             {{ $sell->created_at }}
@@ -65,6 +70,7 @@
                 @endforeach
 
             </table>
+            </div>
             </div>
         </div>
             <div class="clearfix"></div>

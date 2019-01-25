@@ -7,6 +7,9 @@
 @section('contentheader_title')
     <i class='fa fa-history'></i> historial producto
 @endsection
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('history', $product->name) }}
+@endsection
 
 @section('template_linked_css')
   <!-- Css Extras -->

@@ -18,10 +18,10 @@
     <div class="well">
         <div class="row">
             <div class="col-sm-5">
-                <input id="producto" class="form-control" type="text" placeholder="Nombre del producto" v-model="receiversProd.name">
+                <input id="producto" ref="producto" class="form-control" type="text" placeholder="Nombre del producto" v-model="receiversProd.name">
             </div>
             <div class="col-sm-2">
-                <input class="form-control" type="text" placeholder="Cantidad" v-model="quantity" v-if="receiversProd.name" v-on:keyup.enter="addProducToDetail">
+                <input class="form-control" type="number" ref="cantidad" placeholder="Cantidad" v-model="quantity" v-show="receiversProd.name" >
             </div>
             <div class="col-sm-2">
 
@@ -31,7 +31,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">{{ configs.symbol }}</span>
                   </div>
-                  <input class="form-control" type="text" placeholder="Precio"  readonly v-model="receiversProd.price">
+                  <input class="form-control" type="number" placeholder="Precio"  readonly v-model="receiversProd.price">
                 </div>
             </div>
             <div class="col-sm-1">
@@ -45,6 +45,7 @@
         </div>
     </div>
     <hr />
+    <div class="table-responsive">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -81,6 +82,7 @@
         </tr>
         </tfoot>
     </table>
+    </div>
       <div class="col-md-3 float-left">
         <button class="btn btn-danger btn-block"  v-if="detail.length > 0 && proveedor_id > 0" @click.prevent="resetDatos">
           <i class="fas fa-exclamation-triangle"></i> Cancelar
@@ -179,6 +181,12 @@ export default {
   },
   methods: {
     addProducToDetail() {
+      if (this.receiversProd.price == '') {
+        toastr.error(
+          "Error: No es posible agregar",
+          "Verificar el producto"
+        );
+      } else {
       const vm = this;
       this.detail.push({
         id: vm.product_id,
@@ -195,7 +203,9 @@ export default {
 
       this.calculate();
       toastr.info("Se agrego correctamente!", "Atención");
+      vm.$refs.producto.focus();
       this.saveDetails();
+      }
     },
     newAbastecer() {
       const vm = this;
@@ -274,6 +284,7 @@ export default {
                 "Proveedor: " + vm.receiversProv.name,
                 "Se agrego correctamente!"
               );
+              vm.$refs.producto.focus();
             }
           }
         };
@@ -301,6 +312,7 @@ export default {
                 "Producto: " + vm.receiversProd.name,
                 "Se agrego correctamente!"
               );
+              vm.$refs.cantidad.focus();
             }
           }
         };
