@@ -2,10 +2,6 @@
 window._ = require('lodash');
 
 
-// Dropzone
-window.Dropzone = require('dropzone');
-Dropzone.autoDiscover = false;
-
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -24,6 +20,10 @@ try {
 window.toastr = require('toastr');
 require('icheck');
 
+
+// Dropzone
+window.Dropzone = require('dropzone');
+Dropzone.autoDiscover = false;
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

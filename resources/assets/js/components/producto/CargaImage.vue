@@ -2,12 +2,12 @@
 <div>
     <div v-for="(item, index) in items" :key="index">
         <div v-if="!item.image">
-        <h4>Select an image</h4>
+        <h4>Selecciona una imagen</h4>
         <input class="btn btn-default btn-block" name="image" type="file" @change="onFileChange(item, $event)">
         </div>
         <div v-else>
-        <img name="image" :src="item.image" />
-        <button class="btn btn-danger" @click.prevent="removeImage(item)" name="image">Remove image</button>
+        <img class="cargaimage" name="image" :src="item.image" />
+        <button class="btn btn-danger" @click.prevent="removeImage(item)" name="image">Quitar image</button>
         <input class="btn btn-default" name="image" type="file" @change="onFileChange(item, $event)">
         </div>
     </div>
@@ -46,7 +46,7 @@
     }
   </script>
   <style>
-  img {
+  .cargaimage {
   width: 30%;
   margin: auto;
   display: block;

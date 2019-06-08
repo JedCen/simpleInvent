@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 require('hideshowpassword');
-var password = require('password-strength-meter');
+require('password-strength-meter');
 
 
 
@@ -23,7 +23,7 @@ var password = require('password-strength-meter');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).defaul
 Vue.component('users-count', require('./components/UsersCount.vue').default);
 // Categoria componente
-Vue.component("newcliente", require('./components/cliente/NewCliente.vue').default);
+Vue.component('newcliente', require('./components/cliente/NewCliente.vue').default);
 Vue.component('newuser', require('./components/proveedor/NewProveedor.vue').default);
 Vue.component('stockup', require('./components/inventario/StockUp.vue').default);
 Vue.component('venta-up', require('./components/venta/VentaUp.vue').default);
