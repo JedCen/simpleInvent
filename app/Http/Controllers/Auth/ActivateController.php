@@ -108,7 +108,8 @@ class ActivateController extends Controller
                 ->count();
 
             if ($activationsCount > config('settings.timePeriod')) {
-                Log::info('Exceded max resends in last '.config('settings.timePeriod').' hours. '.$currentRoute.'. ', [$user]);
+                Log::info('Exceded max resends in last '
+                .config('settings.timePeriod').' hours. '.$currentRoute.'. ', [$user]);
 
                 $data = [
                     'email' => $user->email,
@@ -191,7 +192,8 @@ class ActivateController extends Controller
                 ->count();
 
             if ($activationsCount >= config('settings.maxAttempts')) {
-                Log::info('Exceded max resends in last '.config('settings.timePeriod').' hours. '.$currentRoute.'. ', [$user]);
+                Log::info('Exceded max resends in last '
+                .config('settings.timePeriod').' hours. '.$currentRoute.'. ', [$user]);
 
                 $data = [
                     'email' => $user->email,

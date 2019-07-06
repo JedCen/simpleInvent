@@ -37,13 +37,12 @@ class ConfigController extends Controller
         try {
             DB::beginTransaction();
             foreach ($request->post() as $short => $val) {
-                
                 Configuration::where('short', $short)
                 ->update(['val' => $val]);
             }
             $return->response = true;
 
-        DB::commit();
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

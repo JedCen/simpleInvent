@@ -31,8 +31,12 @@ Route::group(['middleware' => ['web', 'activity']], function () {
     Route::get('/exceeded', ['as' => 'exceeded', 'uses' => 'Auth\ActivateController@exceeded']);
 
     // Socialite Register Routes
-    Route::get('/social/redirect/{provider}', ['as' => 'social.redirect', 'uses' => 'Auth\SocialController@getSocialRedirect']);
-    Route::get('/social/handle/{provider}', ['as' => 'social.handle', 'uses' => 'Auth\SocialController@getSocialHandle']);
+    Route::get('/social/redirect/{provider}', [
+        'as' => 'social.redirect', 'uses' => 'Auth\SocialController@getSocialRedirect'
+    ]);
+    Route::get('/social/handle/{provider}', [
+        'as' => 'social.handle', 'uses' => 'Auth\SocialController@getSocialHandle'
+    ]);
 
     // Route to for user to reactivate their user deleted account.
     Route::get('/re-activate/{token}', ['as' => 'user.reactivate', 'uses' => 'RestoreUserController@userReActivate']);
@@ -47,7 +51,9 @@ Route::group(['middleware' => ['web', 'activity']], function () {
 Route::group(['middleware' => ['auth', 'activated', 'activity']], function () {
 
     // Activation Routes
-    Route::get('/activation-required', ['uses' => 'Auth\ActivateController@activationRequired'])->name('activation-required');
+    Route::get('/activation-required', [
+        'uses' => 'Auth\ActivateController@activationRequired'
+    ])->name('activation-required');
     Route::get('/logout', ['uses' => 'Auth\LoginController@logout'])->name('logout');
 });
 
@@ -71,7 +77,8 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     // User Profile and Account Routes
     Route::resource(
         'profile',
-        'ProfilesController', [
+        'ProfilesController',
+        [
             'only' => [
                 'show',
                 'edit',
@@ -102,7 +109,7 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfilesController@upload']);
 
     //  Para la venta
-        //Route::resource('sells','VentaController');
+    //Route::resource('sells','VentaController');
     Route::get('sells', ['as' => 'public.home.sells', 'uses' => 'VentaController@index']);
     Route::get('create', ['as' => 'sells.create', 'uses' => 'VentaController@create']);
     Route::get('searchclient', ['as' => ' searchclient', 'uses' => 'VentaController@searchClient']);
@@ -112,38 +119,37 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'twostep']], 
     Route::post('save', 'VentaController@store')->name('save');
     Route::delete('sells/destroy/{id}', ['as' => 'sells.destroy', 'uses' => 'VentaController@destroy']);
 
-        // Para la caja
+    // Para la caja
     Route::get('caja', ['as' => 'caja.index', 'uses' => 'HomeController@show']);
 
-        //  Para Producto
+    //  Para Producto
     Route::resources([
         'producto' => 'ProductoController'
     ]);
     Route::get('descargar-productos', 'ProductoController@pdf')->name('producto.pdf');
-        // --> Route to show image product
+    // --> Route to show image product
     Route::get('images/products/{id}/product/{image}', [
         'uses' => 'ProductoController@imageProduct',
     ]);
-        // -->Route to upload image product.
+    // -->Route to upload image product.
     Route::post('producto/upload/{id}', ['as' => 'producto.upload', 'uses' => 'ProductoController@upload']);
 
-        //  Para Categoría
+    //  Para Categoría
     Route::resources([
         'categorias' => 'CategoriaController'
     ]);
 
-        //  Para Clientes
+    //  Para Clientes
     Route::resource('clientes', 'ClientesController');
     Route::get('clienteslist', 'ClientesController@list')->name('clientelist');
 
-        //  Para Proveedore
+    //  Para Proveedore
     Route::resource('proveedor', 'ProveedoresController');
     Route::get('proveedoreslist', 'ProveedoresController@list')->name('proveedorlist');
     Route::get('searchproovedor', 'ProveedoresController@searchproovedor')->name('searchproveedor');
 
-        // Para Configuracion
-    Route::get('config/config','Configurar\ConfigController@getConfig');
-
+    // Para Configuracion
+    Route::get('config/config', 'Configurar\ConfigController@getConfig');
 });
 
 // Registered, activated, and is admin routes.
@@ -168,18 +174,18 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'twostep']], f
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
 
-        // Para Caja Admin
+    // Para Caja Admin
     Route::put('caja/update', ['as' => 'caja.process', 'uses' => 'HomeController@process']);
     Route::get('caja/historial', ['as' => 'caja.history', 'uses' => 'HomeController@history']);
-    Route::get('caja/historial/{id}',['as' => 'caja.historyone', 'uses' => 'HomeController@detailone']);
+    Route::get('caja/historial/{id}', ['as' => 'caja.historyone', 'uses' => 'HomeController@detailone']);
 
-        // Para Inventario
+    // Para Inventario
     Route::resource('inventario', 'Invent\InventarioController');
     Route::get('abastecer', 'Invent\InventarioController@invlist')->name('abastecerinv');
     Route::get('abastecimientos', 'Invent\InventarioController@abastecerlist')->name('reabastecerinv');
     Route::get('inventario/history/{id}', 'Invent\InventarioController@history')->name('inventario.history');
 
-        // Para reportes
+    // Para reportes
     Route::get('reporte/products', 'Reports\ReporteController@sellbyproduct')->name('sells.product');
     Route::post('reporte/products', 'Reports\ReporteController@getsellbyproduct')->name('getsells.product');
     Route::get('reporte/categorias', 'Reports\ReporteController@sellbycategory')->name('sells.category');
@@ -192,8 +198,5 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'twostep']], f
     Route::post('/config/update', 'ConfigController@update')->name('config.update');
     // -->Route to upload image config.
     Route::post('config/upload/{short}', ['as' => 'config.upload', 'uses' => 'ConfigController@upload']);
-    
-     
+    Route::get('/test', ['as' => 'test', 'uses' => 'TestController@test']);
 });
-
-

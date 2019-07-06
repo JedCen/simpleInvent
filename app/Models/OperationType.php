@@ -28,18 +28,18 @@ class OperationType extends Model
         return $this->hasOne('App\Models\Operation');
     }
 
-    public static function getByName($name){
-    	$sqls = DB::table('operation_type')->where('name','=', $name)->get();
-		 
-		$found = null;
-		$data = new OperationType();
-		foreach($sqls as $sql){
-			$q = array(
-			'id' => $sql->id,
-			'name' => $sql->name
-		);
-			
-		}
-		return $found = new OperationType();
-	}
+    public static function getByName($name)
+    {
+        $sqls = DB::table('operation_type')->where('name', '=', $name)->get();
+         
+        $found = null;
+        $data = new OperationType();
+        foreach ($sqls as $sql) {
+            $q = array(
+            'id' => $sql->id,
+            'name' => $sql->name
+            );
+        }
+        return $found = new OperationType();
+    }
 }

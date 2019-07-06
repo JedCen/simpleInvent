@@ -160,6 +160,11 @@ class InventarioController extends Controller
             $operentrada= Operation::where('product_id', $id)->where('operation_type_id', 1)->get();
             $opersalida= Operation::where('product_id', $id)->where('operation_type_id', 2)->get();
         
-        return view('inventario.inventario.abastecer.history')->with(['product' => $product, 'operations' => $operations, 'operentrada' => $operentrada, 'opersalida' => $opersalida]);
+        return view('inventario.inventario.abastecer.history')
+                ->with(['product' => $product,
+                        'operations' => $operations,
+                        'operentrada' => $operentrada,
+                        'opersalida' => $opersalida
+                        ]);
     }
 }

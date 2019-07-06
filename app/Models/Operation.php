@@ -43,30 +43,37 @@ class Operation extends Model
         return $this->belongsTo('App\Models\Sell');
     }
 
-    public static function getQYesF($product_id){
+    public static function getQYesF($product_id)
+    {
         $q=0;
         $operations = Operation::getAllByProductId($product_id);
         
-        foreach($operations as $operation){
-                if($operation->operation_type_id==1){ $q+=$operation->q; }
-                elseif ($operation->operation_type_id==2){  $q+=(-$operation->q); }
+        foreach ($operations as $operation) {
+            if ($operation->operation_type_id==1) {
+                $q+=$operation->q;
+            } elseif ($operation->operation_type_id==2) {
+                $q+=(-$operation->q);
+            }
         }
         // print_r($data);
         return $q;
     }
-    public function getProduct(){ 
+    public function getProduct()
+    {
         return Product::getById($this->product_id);
     }
 
 /*----- ///   /// ----*/
-    public static function getAllByProductId($product_id){
+    public static function getAllByProductId($product_id)
+    {
         $sql = Operation::where('product_id', $product_id)->orderBy('created_at', 'desc')->get();
         
         return $sql;
     }
 
-    public static function getAllProductsBySellId($sell_id){
-        $sql = Operation::where('sell_id','=', $sell_id)->orderBy('created_at', 'desc')->get();
+    public static function getAllProductsBySellId($sell_id)
+    {
+        $sql = Operation::where('sell_id', '=', $sell_id)->orderBy('created_at', 'desc')->get();
         return $sql;
     }
 }

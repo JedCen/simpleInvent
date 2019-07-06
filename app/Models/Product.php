@@ -50,6 +50,5 @@ class Product extends Model
     {
         $sql = Product::where('id', $id)->first();
         return $sql;
-
     }
 }

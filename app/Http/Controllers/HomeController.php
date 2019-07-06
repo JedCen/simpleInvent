@@ -16,6 +16,7 @@ use App\Models\Operation;
 use App\Models\Category;
 use App\Models\Sell;
 use App\Models\Box;
+
 /**
  * Class HomeController
  * @package App\Http\Controllers
@@ -35,14 +36,15 @@ class HomeController extends Controller
     public function show()
     {
         
-        $sells = Sell::where('operation_type_id', 2)->where('box_id', NULL)->get();
+        $sells = Sell::where('operation_type_id', 2)->where('box_id', null)->get();
         $operats = Operation::whereNotNull('sell_id')->where('operation_type_id', 2)->get();
         $categorias = Category::all();
 
-        return view('inventario.caja.caja', compact('sells','operats', 'categorias'));
+        return view('inventario.caja.caja', compact('sells', 'operats', 'categorias'));
     }
 
-    public function process(){
+    public function process()
+    {
         $return = (object)[
             'response' => false
         ];
@@ -50,13 +52,13 @@ class HomeController extends Controller
         try {
             DB::beginTransaction();
 
-            $sells = Sell::where('operation_type_id', 2)->where('box_id', NULL)->get();
+            $sells = Sell::where('operation_type_id', 2)->where('box_id', null)->get();
 
-            if(count($sells)){
+            if (count($sells)) {
                 $box = new Box();
-                $box->slug = Uuid::generate(5,'corte', Uuid::NS_DNS);
+                $box->slug = Uuid::generate(5, 'corte', Uuid::NS_DNS);
                 $box->save();
-                foreach($sells as $sell){
+                foreach ($sells as $sell) {
                     $sell->box_id = $box->id;
                     $sell->save();
                 }
@@ -72,23 +74,23 @@ class HomeController extends Controller
         if ($return->response = true) {
             return redirect()->route('caja.index');
         }
-
     }
     
-    public function history(){
+    public function history()
+    {
         $operats = Operation::whereNotNull('sell_id')->where('operation_type_id', 2)->get();
         $boxes = Box::all();
         $sells = Sell::where('operation_type_id', 2)->get();
 
-        return view('inventario.caja.history', compact('sells','operats', 'boxes'));
+        return view('inventario.caja.history', compact('sells', 'operats', 'boxes'));
     }
 
-    public function detailone($id){
+    public function detailone($id)
+    {
         
         $sells = Sell::where('operation_type_id', 2)->where('box_id', $id)->get();
         $id = $id;
 
         return view('inventario.caja.historyone', compact('sells', 'id'));
     }
-    
 }

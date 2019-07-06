@@ -142,7 +142,7 @@ class ClientesController extends Controller
             'last_page'       => $posts->lastPage(),
             'from'              => $posts->firstItem(),
             'to'                   => $posts->lastItem(),
-        ],
+            ],
             'posts' => $posts
         ];
     }

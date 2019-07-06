@@ -4,6 +4,7 @@ namespace App\Http\ViewComposers;
 use App\Models\Configuration;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+
 class ConfigComposer
 {
     protected $user;
@@ -28,7 +29,6 @@ class ConfigComposer
         $configimagen = null;
 
         if (Auth::check()) {
-            
             $configNomEmp = Configuration::find(1)->val;
             $configimagen = Configuration::find(6);
         }

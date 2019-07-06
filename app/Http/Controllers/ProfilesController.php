@@ -146,7 +146,7 @@ class ProfilesController extends Controller
 
         $user->save();
 
-        return redirect('profile/'.$user->name.'/edit')->with('success', trans('profile.updateSuccess'));
+        return redirect('profile/' . $user->name . '/edit')->with('success', trans('profile.updateSuccess'));
     }
 
     /**
@@ -207,7 +207,7 @@ class ProfilesController extends Controller
 
         $user->save();
 
-        return redirect('profile/'.$user->name.'/edit')->with('success', trans('profile.updateAccountSuccess'));
+        return redirect('profile/' . $user->name . '/edit')->with('success', trans('profile.updateAccountSuccess'));
     }
 
     /**
@@ -224,7 +224,8 @@ class ProfilesController extends Controller
         $user = User::findOrFail($id);
         $ipAddress = new CaptureIpTrait();
 
-        $validator = Validator::make($request->all(),
+        $validator = Validator::make(
+            $request->all(),
             [
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
@@ -248,7 +249,7 @@ class ProfilesController extends Controller
 
         $user->save();
 
-        return redirect('profile/'.$user->name.'/edit')->with('success', trans('profile.updatePWSuccess'));
+        return redirect('profile/' . $user->name . '/edit')->with('success', trans('profile.updatePWSuccess'));
     }
 
     /**
@@ -263,16 +264,16 @@ class ProfilesController extends Controller
         if (Input::hasFile('file')) {
             $currentUser = \Auth::user();
             $avatar = Input::file('file');
-            $filename = 'avatar.'.$avatar->getClientOriginalExtension();
-            $save_path = storage_path().'/users/id/'.$currentUser->id.'/uploads/images/avatar/';
-            $path = $save_path.$filename;
-            $public_path = '/images/profile/'.$currentUser->id.'/avatar/'.$filename;
+            $filename = 'avatar.' . $avatar->getClientOriginalExtension();
+            $save_path = storage_path() . '/users/id/' . $currentUser->id . '/uploads/images/avatar/';
+            $path = $save_path . $filename;
+            $public_path = '/images/profile/' . $currentUser->id . '/avatar/' . $filename;
 
             // Make the user a folder and set permissions
             File::makeDirectory($save_path, $mode = 0755, true, true);
 
             // Save the file to the server
-            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+            Image::make($avatar)->resize(300, 300)->save($save_path . $filename);
 
             // Save the public image path
             $currentUser->profile->avatar = $public_path;
@@ -294,7 +295,7 @@ class ProfilesController extends Controller
      */
     public function userProfileAvatar($id, $image)
     {
-        return Image::make(storage_path().'/users/id/'.$id.'/uploads/images/avatar/'.$image)->response();
+        return Image::make(storage_path() . '/users/id/' . $id . '/uploads/images/avatar/' . $image)->response();
     }
 
     /**
@@ -311,7 +312,8 @@ class ProfilesController extends Controller
         $user = User::findOrFail($id);
         $ipAddress = new CaptureIpTrait();
 
-        $validator = Validator::make($request->all(),
+        $validator = Validator::make(
+            $request->all(),
             [
                 'checkConfirmDelete' => 'required',
             ],
@@ -321,7 +323,7 @@ class ProfilesController extends Controller
         );
 
         if ($user->id != $currentUser->id) {
-            return redirect('profile/'.$user->name.'/edit')->with('error', trans('profile.errorDeleteNotYour'));
+            return redirect('profile/' . $user->name . '/edit')->with('error', trans('profile.errorDeleteNotYour'));
         }
 
         if ($validator->fails()) {
@@ -334,7 +336,7 @@ class ProfilesController extends Controller
         $restoreKey = config('settings.restoreKey');
         $encrypter = config('settings.restoreUserEncType');
         $level1 = $user->id * $userIdKey;
-        $level2 = urlencode(Uuid::generate(4).$sepKey.$level1);
+        $level2 = urlencode(Uuid::generate(4) . $sepKey . $level1);
         $level3 = base64_encode($level2);
         $level4 = openssl_encrypt($level3, $encrypter, $restoreKey);
         $level5 = base64_encode($level4);

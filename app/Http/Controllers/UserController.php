@@ -32,8 +32,8 @@ class UserController extends Controller
         $products = Product::all();
         $clientes = Person::where('kind', 1);
         $sells = Sell::where('operation_type_id', 2)
-                ->whereMonth('created_at','=', DB::raw('MONTH(CURDATE())'))
-                ->whereYear('created_at','=', DB::raw('YEAR(CURDATE())'))
+                ->whereMonth('created_at', '=', DB::raw('MONTH(CURDATE())'))
+                ->whereYear('created_at', '=', DB::raw('YEAR(CURDATE())'))
                 ->get();
 
         $product5 = Product::latest()
@@ -47,10 +47,11 @@ class UserController extends Controller
         return view('pages.user.home');
     }
 
-    public function chart(){
-        $result = Sell::where('operation_type_id','=','2')
-            ->whereMonth('created_at','=', DB::raw('MONTH(CURDATE())'))
-            ->whereYear('created_at','=', DB::raw('YEAR(CURDATE())'))
+    public function chart()
+    {
+        $result = Sell::where('operation_type_id', '=', '2')
+            ->whereMonth('created_at', '=', DB::raw('MONTH(CURDATE())'))
+            ->whereYear('created_at', '=', DB::raw('YEAR(CURDATE())'))
             ->orderBy('id', 'ASC')
             ->get();
         return response()->json($result);

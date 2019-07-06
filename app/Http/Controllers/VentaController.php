@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Operation;
@@ -12,7 +11,6 @@ use App\Models\Product;
 use Auth;
 use DB;
 use Session;
-
 
 class VentaController extends Controller
 {
@@ -110,7 +108,7 @@ class VentaController extends Controller
 
         $sells = Sell::find($id);
         $operations = Operation::where('operation.sell_id', '=', $id)
-        ->where('operation_type_id', 2)
+            ->where('operation_type_id', 2)
             ->get();
         $data = [
             'sells' => $sells,
@@ -158,7 +156,7 @@ class VentaController extends Controller
 
         return Redirect::route('public.home');
     }
-///---------/////
+    ///---------/////
 
     public function searchClient(Request $request)
     {
@@ -171,7 +169,10 @@ class VentaController extends Controller
             ->take(5)->get();
 
         foreach ($queries as $query) {
-            $results[] = ['id' => $query->id, 'name' => $query->name, 'rfc' => $query->rfc, 'address1' => $query->address1];
+            $results[] = [
+                'id' => $query->id, 'name' => $query->name,
+                'rfc' => $query->rfc, 'address1' => $query->address1
+            ];
         }
 
         return response()->json([
@@ -187,15 +188,18 @@ class VentaController extends Controller
 
 
         $queries = Product::where('is_active', '=', 1)
-            ->where(function($xd) use ($q){
+            ->where(function ($xd) use ($q) {
                 $xd->where('barcode', 'LIKE', '%' . $q . '%')
-                ->orWhere('name', 'LIKE', '%' . $q . '%');
-            }) 
+                    ->orWhere('name', 'LIKE', '%' . $q . '%');
+            })
             ->take(5)->get();
 
         foreach ($queries as $query) {
             $stock = Operation::getQYesF($query->id);
-            $results[] = ['id' => $query->id, 'barcode' => $query->barcode, 'name' => $query->name, 'price' => $query->price_out, 'stock' => $stock];
+            $results[] = [
+                'id' => $query->id, 'barcode' => $query->barcode,
+                'name' => $query->name, 'price' => $query->price_out, 'stock' => $stock
+            ];
         }
 
         return response()->json([
@@ -210,15 +214,18 @@ class VentaController extends Controller
         $results = array();
 
 
-        $queries = Product::where(function($xd) use ($q){
-                $xd->where('barcode', 'LIKE', '%' . $q . '%')
+        $queries = Product::where(function ($xd) use ($q) {
+            $xd->where('barcode', 'LIKE', '%' . $q . '%')
                 ->orWhere('name', 'LIKE', '%' . $q . '%');
-            }) 
+        })
             ->take(5)->get();
 
         foreach ($queries as $query) {
             $stock = Operation::getQYesF($query->id);
-            $results[] = ['id' => $query->id, 'barcode' => $query->barcode, 'name' => $query->name, 'price' => $query->price_out, 'stock' => $stock];
+            $results[] = [
+                'id' => $query->id, 'barcode' => $query->barcode, 'name' => $query->name,
+                'price' => $query->price_out, 'stock' => $stock
+            ];
         }
 
         return response()->json([
@@ -227,19 +234,19 @@ class VentaController extends Controller
     }
 
     public function print(Request $request)
-        {
-            try {
-                $connector = new CupsPrintConnector("XP_80");
-                $printer = new Printer($connector);
-                $printer -> text("Hello World!\n");
-                $printer -> cut();
+    {
+        try {
+            $connector = new CupsPrintConnector("XP_80");
+            $printer = new Printer($connector);
+            $printer->text("Hello World!\n");
+            $printer->cut();
 
-                $printer -> close();
-            } catch(Exception $e) {
-                echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
-                $printer -> close();
-            }
-
-            return redirect()->back();
+            $printer->close();
+        } catch (Exception $e) {
+            echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
+            $printer->close();
         }
+
+        return redirect()->back();
+    }
 }

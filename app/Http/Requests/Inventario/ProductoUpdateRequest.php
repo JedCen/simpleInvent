@@ -37,8 +37,9 @@ class ProductoUpdateRequest extends FormRequest
         ];
        
 
-        if($this->get('image'))        
+        if ($this->get('image')) {
             $rules = array_merge($rules, ['image'         => 'mimes:jpg,jpeg,png']);
+        }
 
         return $rules;
     }

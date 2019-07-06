@@ -12,7 +12,7 @@ HTML::macro('image_link', function ($url = '', $img = '', $alt = '', $link_name 
 
 HTML::macro('icon_link', function ($url = '', $icon = '', $link_name = '', $param = '', $active = true, $ssl = false) {
     $url = $ssl == true ? URL::to_secure($url) : URL::to($url);
-    $icon = '<i class="'.$icon.'" aria-hidden="true"></i>'.$link_name;
+    $icon = '<i class="' . $icon . '" aria-hidden="true"></i>' . $link_name;
     $link = $active == true ? HTML::link($url, '#', $param) : $icon;
     $link = str_replace('#', $icon, $link);
 
@@ -21,7 +21,7 @@ HTML::macro('icon_link', function ($url = '', $icon = '', $link_name = '', $para
 
 HTML::macro('icon_btn', function ($url = '', $icon = '', $link_name = '', $param = '', $active = true, $ssl = false) {
     $url = $ssl == true ? URL::to_secure($url) : URL::to($url);
-    $icon = $link_name.' <i class="'.$icon.'" aria-hidden="true"></i>';
+    $icon = $link_name . ' <i class="' . $icon . '" aria-hidden="true"></i>';
     $link = $active == true ? HTML::link($url, '#', $param) : $icon;
     $link = str_replace('#', $icon, $link);
 

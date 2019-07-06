@@ -16,8 +16,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('inventario.categoria.index', compact('categories')); 
-        
+        return view('inventario.categoria.index', compact('categories'));
     }
 
     /**
@@ -49,7 +48,7 @@ class CategoriaController extends Controller
         $categories->save();
 
         $notificacion = array(
-            'message' => 'Exito! Se agrego correctamente.', 
+            'message' => 'Exito! Se agrego correctamente.',
             'alert-type' => 'success'
         );
  
@@ -98,12 +97,11 @@ class CategoriaController extends Controller
                 $categories->save();
      
         $notificacion = array(
-            'message' => 'Exito! Se actualizo correctamente.', 
+            'message' => 'Exito! Se actualizo correctamente.',
             'alert-type' => 'success'
         );
  
         return redirect()->route('categorias.index')->with($notificacion);
-        
     }
 
     /**
@@ -115,14 +113,14 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
      
-    $categories = Category::find($id);
-    $categories->delete();
+        $categories = Category::find($id);
+        $categories->delete();
 
-     $notificacion = array(
-            'message' => 'Exito! Se elimino correctamente.', 
+        $notificacion = array(
+            'message' => 'Exito! Se elimino correctamente.',
             'alert-type' => 'warning'
         );
  
-        return redirect()->route('categorias.index')->with($notificacion);   
+        return redirect()->route('categorias.index')->with($notificacion);
     }
 }

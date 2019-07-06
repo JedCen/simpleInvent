@@ -20,9 +20,9 @@ class Sell extends Model
      *
      * @var array
      */
-	protected $fillable = [
-		
-	];
+    protected $fillable = [
+        
+    ];
 
     protected $guarded = [
         'id'
@@ -53,17 +53,15 @@ class Sell extends Model
         return $this->hasOne('App\Models\Box');
     }
 
-     public function product()
+    public function product()
     {
         return $this->hasOne('App\Models\Product');
     }
 
-    public static function getSells(){
-		$sql = DB::table('sell')->where('operation_type_id','=', 2)->orderBy('created_at', 'desc')->get();
-		
-		return $sql;
-	}
-
-       
-
+    public static function getSells()
+    {
+        $sql = DB::table('sell')->where('operation_type_id', '=', 2)->orderBy('created_at', 'desc')->get();
+        
+        return $sql;
+    }
 }

@@ -66,7 +66,8 @@ class UsersManagementController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),
+        $validator = Validator::make(
+            $request->all(),
             [
                 'name'                  => 'required|max:255|unique:users',
                 'first_name'            => '',

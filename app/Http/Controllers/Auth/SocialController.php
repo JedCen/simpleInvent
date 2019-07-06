@@ -26,7 +26,7 @@ class SocialController extends Controller
      */
     public function getSocialRedirect($provider)
     {
-        $providerKey = Config::get('services.'.$provider);
+        $providerKey = Config::get('services.' . $provider);
 
         if (empty($providerKey)) {
             return view('pages.status')
@@ -61,7 +61,7 @@ class SocialController extends Controller
         $email = $socialUserObject->email;
 
         if (!$socialUserObject->email) {
-            $email = 'missing'.str_random(10).'@'.str_random(10).'.example.org';
+            $email = 'missing' . str_random(10) . '@' . str_random(10) . '.example.org';
         }
 
         if (empty($userCheck)) {
@@ -114,7 +114,7 @@ class SocialController extends Controller
                     $user->profile->github_username = $socialUserObject->nickname;
                 }
 
-                // Twitter User Object details: https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object
+                
                 if ($socialData->provider == 'twitter') {
                     $user->profile()->twitter_username = $socialUserObject->screen_name;
                 }
@@ -177,6 +177,6 @@ class SocialController extends Controller
      */
     public function generateUserName($username)
     {
-        return $username.'_'.str_random(10);
+        return $username . '_' . str_random(10);
     }
 }

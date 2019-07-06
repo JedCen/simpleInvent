@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Reports;
 
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -14,7 +13,6 @@ use App\Models\Category;
 use Auth;
 use DB;
 use Carbon\Carbon;
-
 
 class ReporteController extends Controller
 {
@@ -123,6 +121,4 @@ class ReporteController extends Controller
 
         return view('inventario.reportes.buys', compact('proveedor'));
     }
-
-    
 }

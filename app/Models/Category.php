@@ -32,5 +32,4 @@ class Category extends Model
     {
         return $this->hasOne('App\Models\Product');
     }
-
 }

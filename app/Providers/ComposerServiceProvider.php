@@ -15,10 +15,12 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
-            'layouts.app', 'App\Http\ViewComposers\ProductComposer'
+            'layouts.app',
+            'App\Http\ViewComposers\ProductComposer'
         );
         View::composer(
-            'layouts.app', 'App\Http\ViewComposers\ConfigComposer'
+            'layouts.app',
+            'App\Http\ViewComposers\ConfigComposer'
         );
     }
 
