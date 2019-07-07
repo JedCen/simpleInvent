@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ConnectRelationshipsSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(OperationTypeTableSeeder::class);
+        $this->call(ConfigurationSeeder::class);
 
         Model::reguard();
     }

@@ -164,7 +164,6 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
         App\Providers\MacroServiceProvider::class,
-        jeremykenedy\LaravelRoles\RolesServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Creativeorange\Gravatar\GravatarServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,

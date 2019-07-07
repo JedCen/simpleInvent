@@ -3,14 +3,14 @@
     <div class="well">
       <div class="row">
         <div class="col-sm-6">
-          <input name="provId" type="hidden" v-model="receiversProv.prov_id">
+          <input name="provId" type="hidden" v-model="receiversProv.prov_id" />
           <input
             id="proveedor"
             class="form-control"
             type="text"
             placeholder="Nombre del Cliente..."
             v-model="receiversProv.name"
-          >
+          />
         </div>
         <div class="col-sm-2">
           <input
@@ -20,7 +20,7 @@
             readonly
             disabled
             v-model="receiversProv.rfc"
-          >
+          />
         </div>
         <div class="col-sm-4">
           <input
@@ -30,7 +30,7 @@
             readonly
             disabled
             v-model="receiversProv.address1"
-          >
+          />
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="well">
       <div class="row">
         <div class="col-sm-5">
-          <input type="hidden" v-model="product_id">
+          <input type="hidden" v-model="product_id" />
           <input
             id="producto"
             ref="producto"
@@ -46,7 +46,7 @@
             type="text"
             placeholder="Nombre del producto"
             v-model="receiversProd.name"
-          >
+          />
         </div>
         <div class="col-sm-2">
           <input
@@ -55,7 +55,7 @@
             ref="cantidad"
             placeholder="Cantidad"
             v-model="quantity"
-          >
+          />
         </div>
         <div class="col-sm-2">
           <div class="input-group">
@@ -69,7 +69,7 @@
               placeholder="Stock"
               readonly
               v-model="stock"
-            >
+            />
           </div>
         </div>
         <div class="col-sm-2">
@@ -83,7 +83,7 @@
               aria-label="Precio"
               readonly
               v-model="receiversProd.price"
-            >
+            />
           </div>
         </div>
         <div class="col-sm-1">
@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    <hr>
+    <hr />
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
@@ -194,7 +194,7 @@
                     readonly
                     disabled
                     v-model="total"
-                  >
+                  />
                 </div>
               </div>
               <div class="form-group row">
@@ -207,12 +207,13 @@
                     class="form-control"
                     id="colFormLabel"
                     required
+                    ref="efectivo"
                     v-model="efectivo"
                     focus
-                  >
+                  />
                 </div>
               </div>
-              <hr class="my-4">
+              <hr class="my-4" />
               <div class="form-group row">
                 <label for="colFormLabel" class="col-sm-4 col-form-label">
                   <p class="font-weight-bold">Cambío</p>
@@ -358,6 +359,7 @@ export default {
     initAddVenta() {
       this.errors = [];
       $("#init_add_venta").modal("toggle");
+      this.$refs.efectivo.focus();
     },
     realPago() {
       if (this.efectivo >= this.total) {
