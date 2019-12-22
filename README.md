@@ -144,6 +144,11 @@ php artisan vendor:publish --tag=laravel2step
         {!! HTML::link(route('social.redirect', ['provider' => 'twitch']), 'Twitch', array('class' => 'btn btn-lg btn-primary btn-block twitch')) !!}
         ```
 
-### Other API keys
-* [Google Maps API v3 Key](https://developers.google.com/maps/documentation/javascript/get-api-key#get-an-api-key)
+### Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars0.githubusercontent.com/u/6244570?v=4" width="110px;" alt="Jeremy Kenedy"/><br /><sub><b>Jeremy Kenedy</b></sub>](http://jeremykenedy.github.io/)<br />[💻](https://github.com/jeremykenedy/laravel-auth/commits?author=jeremykenedy "Code") [🚧](#maintenance-jeremykenedy "Maintenance") [🎨](#design-jeremykenedy "Design") [🌍](#translation-jeremykenedy "Translation") [📦](#platform-jeremykenedy "Packaging/porting to new platform")
 
