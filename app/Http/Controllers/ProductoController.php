@@ -18,6 +18,16 @@ use File;
 class ProductoController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -49,7 +59,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
             'barcode' => 'required|integer',
             'user_id' => 'required|integer',
@@ -69,16 +79,16 @@ class ProductoController extends Controller
 
         if (Input::hasFile('image')) {
             $avatar = Input::file('image');
-            $filename = 'product.'.$avatar->getClientOriginalExtension();
-            $save_path = storage_path().'/products/id/'.$products->id.'/uploads/images/product/';
-            $path = $save_path.$filename;
-            $public_path = '/images/products/'.$products->id.'/product/'.$filename;
+            $filename = 'product.' . $avatar->getClientOriginalExtension();
+            $save_path = storage_path() . '/products/id/' . $products->id . '/uploads/images/product/';
+            $path = $save_path . $filename;
+            $public_path = '/images/products/' . $products->id . '/product/' . $filename;
 
             // Make the user a folder and set permissions
             File::makeDirectory($save_path, $mode = 0755, true, true);
 
             // Save the file to the server
-            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+            Image::make($avatar)->resize(300, 300)->save($save_path . $filename);
 
             // Save the public image path
             $products->image = $public_path;
@@ -172,10 +182,10 @@ class ProductoController extends Controller
      */
     public function imageProduct($id, $image)
     {
-        return Image::make(storage_path().'/products/id/'.$id.'/uploads/images/product/'.$image)->response();
+        return Image::make(storage_path() . '/products/id/' . $id . '/uploads/images/product/' . $image)->response();
     }
 
-     /**
+    /**
      * Upload and Update image config.
      *
      * @param $file
@@ -187,16 +197,16 @@ class ProductoController extends Controller
         if (Input::hasFile('file')) {
             $product = Product::find($id);
             $avatar = Input::file('file');
-            $filename = 'product.'.$avatar->getClientOriginalExtension();
-            $save_path = storage_path().'/products/id/'.$product->id.'/uploads/images/product/';
-            $path = $save_path.$filename;
-            $public_path = '/images/products/'.$product->id.'/product/'.$filename;
+            $filename = 'product.' . $avatar->getClientOriginalExtension();
+            $save_path = storage_path() . '/products/id/' . $product->id . '/uploads/images/product/';
+            $path = $save_path . $filename;
+            $public_path = '/images/products/' . $product->id . '/product/' . $filename;
 
             // Make the user a folder and set permissions
             File::makeDirectory($save_path, $mode = 0755, true, true);
 
             // Save the file to the server
-            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+            Image::make($avatar)->resize(300, 300)->save($save_path . $filename);
 
             // Save the public image path
             $product->image = $public_path;
@@ -216,7 +226,7 @@ class ProductoController extends Controller
          **/
         $products = Product::all();
 
-        $pdf = \PDF::loadView('inventario.producto.pdf', ['products'=>$products]);
+        $pdf = \PDF::loadView('inventario.producto.pdf', ['products' => $products]);
         return $pdf->download('listado.pdf');
     }
 }

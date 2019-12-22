@@ -9,6 +9,16 @@ use Validator;
 class CategoriaController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -41,7 +51,7 @@ class CategoriaController extends Controller
             'name'        => 'required|max:255',
         ]);
         $slug = str_slug(request('name'), '-');
-        
+
         $categories = new Category;
         $categories->name = request('name');
         $categories->slug = $slug;
@@ -51,7 +61,7 @@ class CategoriaController extends Controller
             'message' => 'Exito! Se agrego correctamente.',
             'alert-type' => 'success'
         );
- 
+
         return redirect()->route('categorias.index')->with($notificacion);
     }
 
@@ -86,21 +96,21 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $this->validate($request, [
             'name'        => 'required|max:255',
         ]);
-        
-        
-            $categories = Category::findOrFail($id);
-                $categories->name = $request->name;
-                $categories->save();
-     
+
+
+        $categories = Category::findOrFail($id);
+        $categories->name = $request->name;
+        $categories->save();
+
         $notificacion = array(
             'message' => 'Exito! Se actualizo correctamente.',
             'alert-type' => 'success'
         );
- 
+
         return redirect()->route('categorias.index')->with($notificacion);
     }
 
@@ -112,7 +122,7 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-     
+
         $categories = Category::find($id);
         $categories->delete();
 
@@ -120,7 +130,7 @@ class CategoriaController extends Controller
             'message' => 'Exito! Se elimino correctamente.',
             'alert-type' => 'warning'
         );
- 
+
         return redirect()->route('categorias.index')->with($notificacion);
     }
 }

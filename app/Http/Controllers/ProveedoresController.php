@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 class ProveedoresController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -51,7 +61,7 @@ class ProveedoresController extends Controller
         $proveedor->address1 = request('address1');
         $proveedor->phone1 = request('phone1');
         $proveedor->email1 = request('email1');
-        $proveedor->slug = str_slug(request('name').'provider', '-');
+        $proveedor->slug = str_slug(request('name') . 'provider', '-');
         $proveedor->kind = 2;
         $proveedor->save();
 

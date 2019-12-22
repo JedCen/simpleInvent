@@ -8,6 +8,16 @@ use App\Models\Person;
 class ClientesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -51,10 +61,10 @@ class ClientesController extends Controller
         $post->address1 = request('address1');
         $post->phone1 = request('phone1');
         $post->email1 = request('email1');
-        $post->slug = str_slug(request('name').'cliente', '-');
+        $post->slug = str_slug(request('name') . 'cliente', '-');
         $post->kind = 1;
         $post->save();
- 
+
         return response()->json([
             'post'    => $post,
             'message' => 'Success'
@@ -108,7 +118,7 @@ class ClientesController extends Controller
         $post->phone1 = request('phone1');
         $post->email1 = request('email1');
         $post->save();
- 
+
         return response()->json([
             'message' => 'Cliente actualizado correctamente!'
         ], 200);
@@ -133,15 +143,15 @@ class ClientesController extends Controller
 
     public function list(Request $request)
     {
-        $posts= Person::where('kind', 1)->paginate(2);
+        $posts = Person::where('kind', 1)->paginate(2);
         return [
             'pagination' => [
-            'total'               => $posts->total(),
-            'current_page' => $posts->currentPage(),
-            'per_page'       => $posts->perPage(),
-            'last_page'       => $posts->lastPage(),
-            'from'              => $posts->firstItem(),
-            'to'                   => $posts->lastItem(),
+                'total'               => $posts->total(),
+                'current_page' => $posts->currentPage(),
+                'per_page'       => $posts->perPage(),
+                'last_page'       => $posts->lastPage(),
+                'from'              => $posts->firstItem(),
+                'to'                   => $posts->lastItem(),
             ],
             'posts' => $posts
         ];

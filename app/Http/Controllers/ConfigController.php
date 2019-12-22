@@ -12,6 +12,16 @@ use DB;
 class ConfigController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'imageConfig']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,14 +41,14 @@ class ConfigController extends Controller
      */
     public function update(Request $request)
     {
-        $return = (object)[
+        $return = (object) [
             'response' => false
         ];
         try {
             DB::beginTransaction();
             foreach ($request->post() as $short => $val) {
                 Configuration::where('short', $short)
-                ->update(['val' => $val]);
+                    ->update(['val' => $val]);
             }
             $return->response = true;
 
@@ -63,7 +73,7 @@ class ConfigController extends Controller
      */
     public function imageConfig($id, $image)
     {
-        return Image::make(storage_path().'/configs/id/'.$id.'/uploads/images/config/'.$image)->response();
+        return Image::make(storage_path() . '/configs/id/' . $id . '/uploads/images/config/' . $image)->response();
     }
 
     /**
@@ -77,16 +87,16 @@ class ConfigController extends Controller
         if (Input::hasFile('file')) {
             $config = Configuration::find($id);
             $avatar = Input::file('file');
-            $filename = 'config.'.$avatar->getClientOriginalExtension();
-            $save_path = storage_path().'/configs/id/'.$config->id.'/uploads/images/config/';
-            $path = $save_path.$filename;
-            $public_path = '/images/configs/'.$config->id.'/config/'.$filename;
+            $filename = 'config.' . $avatar->getClientOriginalExtension();
+            $save_path = storage_path() . '/configs/id/' . $config->id . '/uploads/images/config/';
+            $path = $save_path . $filename;
+            $public_path = '/images/configs/' . $config->id . '/config/' . $filename;
 
             // Make the user a folder and set permissions
             File::makeDirectory($save_path, $mode = 0755, true, true);
 
             // Save the file to the server
-            Image::make($avatar)->resize(300, 300)->save($save_path.$filename);
+            Image::make($avatar)->resize(300, 300)->save($save_path . $filename);
 
             // Save the public image path
             $config->val = $public_path;
