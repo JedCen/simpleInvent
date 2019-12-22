@@ -1,5 +1,4 @@
-## Laravel-Auth
-#### Laravel-Auth is a Complete Build of Laravel 5.6 with Email Registration Verification, Social Authentication, User Roles and Permissions, User Profiles, and Admin restricted user management system. Built on Bootstrap 4.
+## Simple appweb para inventario
 
 
 #### Table of contents
@@ -12,7 +11,6 @@
     - [Seeded Roles](#seeded-roles)
     - [Seeded Permissions](#seeded-permissions)
     - [Seeded Users](#seeded-users)
-    - [Themes Seed List](#themes-seed-list)
 - [Routes](#routes)
 - [Socialite](#socialite)
     - [Get Socialite Login API Keys](#get-socialite-login-api-keys)
