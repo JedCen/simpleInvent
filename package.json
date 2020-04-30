@@ -23,7 +23,7 @@
         "hideshowpassword": "^2.1.1",
         "icheck": "^1.0.2",
         "ionicons": "^2.0.1",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "laravel-echo": "^1.6.1",
         "laravel-mix": "^4.1.4",
         "lodash": "^4.17.13",
