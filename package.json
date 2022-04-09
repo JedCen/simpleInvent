@@ -27,7 +27,7 @@
         "laravel-echo": "^1.6.1",
         "laravel-mix": "^4.1.4",
         "lodash": "^4.17.13",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "password-strength-meter": "^1.2.2",
         "popper.js": "^1.16.0",
         "pusher-js": "^4.4.0",
